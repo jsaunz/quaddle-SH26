@@ -440,11 +440,6 @@ function initializeAccountModal() {
         localStorage.setItem('skippedAccount', 'true');
         // Mark that we've shown/suppressed the welcome flow so it won't auto-show again
         localStorage.setItem('seenWelcome', 'true');
-
-        // Show quad selection modal after a brief delay (will respect seen flag)
-        setTimeout(() => {
-            window.showQuadSelectionModal();
-        }, 500);
     });
     
     // Finish account creation
@@ -479,11 +474,6 @@ function initializeAccountModal() {
         // Close modal and update UI
         accountModal.classList.add('hidden');
         updateUserUI();
-        
-        // Show quad selection modal after a brief delay
-        setTimeout(() => {
-            window.showQuadSelectionModal();
-        }, 500);
     }
 }
 
