@@ -184,6 +184,40 @@
         </div>
     </div>
 
+    <!-- Quad Selection Modal (after account setup) -->
+    <div id="quadSelectionModal" class="modal">
+        <div class="modal-content">
+            <!-- Step 1: University Selection for Quad -->
+            <div id="quadStep1" class="modal-step">
+                <h2>Choose Your Home Quad</h2>
+                <p>Select the university where you'd like to join a quad</p>
+                <div id="quadUniversityList" class="selection-list">
+                    <div class="selection-item" data-university="uic">
+                        <div class="selection-icon">🏫</div>
+                        <div class="selection-text">University of Illinois Chicago</div>
+                    </div>
+                    <div class="selection-item" data-university="uiuc">
+                        <div class="selection-icon">🏫</div>
+                        <div class="selection-text">University of Illinois Urbana-Champaign</div>
+                    </div>
+                    <div class="selection-item" data-university="uchicago">
+                        <div class="selection-icon">🏫</div>
+                        <div class="selection-text">University of Chicago</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-secondary" id="skipQuadBtn">Skip</button>
+            </div>
+
+            <!-- Step 2: Quad Selection -->
+            <div id="quadStep2" class="modal-step hidden">
+                <h2>Select Your Quad</h2>
+                <p id="quadUniversityDisplay">Choose a quad to join</p>
+                <div id="homeQuadList" class="selection-list"></div>
+                <button type="button" class="btn-secondary" id="backQuadBtn">Back</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
