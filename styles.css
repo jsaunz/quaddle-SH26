@@ -26,7 +26,7 @@ body {
     background: linear-gradient(135deg, #F3FBFF 0%, #EAF6FF 60%, #FFFFFF 100%);
     background-attachment: fixed;
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Times New Roman", Times, serif;
     line-height: 1.5;
     position: relative;
 }
