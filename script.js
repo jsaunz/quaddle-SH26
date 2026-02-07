@@ -7,7 +7,7 @@ const SAMPLE_POSTS = [
         time: "0.5 miles away",
         title: "Professional Haircuts & Styling",
         preview: "Expert stylists specializing in modern cuts, fades, and hair treatments. Professional haircuts for all hair types and styles.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/1319460/pexels-photo-1319460.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.9,
         reviews: 234,
         price: "$$"
@@ -19,7 +19,7 @@ const SAMPLE_POSTS = [
         time: "0.8 miles away",
         title: "Luxury Manicures & Pedicures",
         preview: "Premium nail services with high-quality products and impeccable hygiene standards. Gel, acrylics, and natural nail care available.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/604969/pexels-photo-604969.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.8,
         reviews: 189,
         price: "$$"
@@ -31,7 +31,7 @@ const SAMPLE_POSTS = [
         time: "1.2 miles away",
         title: "Professional Lash Extensions & Treatments",
         preview: "Expert lash technicians specializing in volume lashes, classic lashes, and lash lift treatments. Natural-looking results with premium materials.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/3373745/pexels-photo-3373745.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.9,
         reviews: 312,
         price: "$$$"
@@ -43,7 +43,7 @@ const SAMPLE_POSTS = [
         time: "0.3 miles away",
         title: "Fashion & Personal Styling Consultations",
         preview: "Expert personal stylists help you find the perfect wardrobe. Clothing alterations, styling advice, and seasonal collections available.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.7,
         reviews: 421,
         price: "$$"
@@ -55,7 +55,7 @@ const SAMPLE_POSTS = [
         time: "1.5 miles away",
         title: "Professional Tutoring Services",
         preview: "Expert tutors in math, science, English, and more. One-on-one sessions tailored to student needs. Test prep and homework help available.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.9,
         reviews: 267,
         price: "$"
@@ -67,7 +67,7 @@ const SAMPLE_POSTS = [
         time: "0.9 miles away",
         title: "Professional Fundraising Event Planning",
         preview: "Full-service fundraising support for nonprofits and student organizations. Donation coordination, event management, and grant writing assistance.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.6,
         reviews: 198,
         price: "$$"
@@ -79,7 +79,7 @@ const SAMPLE_POSTS = [
         time: "2.1 miles away",
         title: "Barber Services & Grooming",
         preview: "Classic and contemporary haircuts. Skilled barbers specializing in fades, line-ups, and traditional shaving services.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/1813272/pexels-photo-1813272.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.8,
         reviews: 345,
         price: "$$"
@@ -91,7 +91,7 @@ const SAMPLE_POSTS = [
         time: "0.7 miles away",
         title: "Sustainable Fashion & Tailoring",
         preview: "Curated vintage clothing, eco-friendly brands, and professional alteration services. Express yourself sustainably.",
-        image: "https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?cs=srgb&dl=pexels-delbeautybox-211032-853427.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/1336873/pexels-photo-1336873.jpeg?auto=compress&cs=tinysrgb&w=800",
         rating: 4.9,
         reviews: 276,
         price: "$$"
