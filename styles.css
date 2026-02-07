@@ -5,15 +5,15 @@
 }
 
 :root {
-    --primary-color: #818384;
-    --secondary-color: #0045ac;
-    --background: #ff0000;
-    --foreground: #1a1a1b;
-    --border: #343536;
-    --text-primary: #d7dadc;
-    --text-secondary: #818384;
-    --upvote: #818384;
-    --downvote: #818384;
+    --primary-color: #c4a5a0;
+    --secondary-color: #b4a7d6;
+    --background: #f5e6d3;
+    --foreground: #e8d5c4;
+    --border: #d4b5a0;
+    --text-primary: #4a4a4a;
+    --text-secondary: #8b7b7b;
+    --upvote: #9bb4d4;
+    --downvote: #d4a4a4;
     --spacing: 8px;
 }
 
