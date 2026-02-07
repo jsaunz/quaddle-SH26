@@ -246,8 +246,9 @@ function handleServiceClick(service, action) {
             alert(`Book an appointment at ${service.provider}!\n\nIn a real app, this would open a booking calendar.`);
             break;
         case 'details':
-            message = `Viewing details for: ${service.provider}`;
-            alert(`${service.provider} Details\n\nCategory: ${service.category}\n${service.preview}\n\nRating: ${service.rating} ⭐\nReviews: ${service.reviews}\nPrice Range: ${service.price}`);
+                message = `Viewing details for: ${service.provider}`;
+                // Open a dedicated details page and pass the service id
+                window.open(`details.html?id=${service.id}`, '_blank');
             break;
     }
     console.log(message);
