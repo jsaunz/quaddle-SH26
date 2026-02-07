@@ -308,3 +308,62 @@ function loadUserVotes() {
 
 // Load votes on startup
 loadUserVotes();
+
+// Account creation modal functionality
+function initializeAccountModal() {
+    const accountModal = document.getElementById('accountModal');
+    const accountForm = document.getElementById('accountForm');
+    const skipBtn = document.getElementById('skipBtn');
+    
+    // Check if user has already created an account
+    const userAccount = localStorage.getItem('userAccount');
+    if (userAccount) {
+        accountModal.classList.add('hidden');
+        return;
+    }
+    
+    // Show the modal on load
+    accountModal.classList.remove('hidden');
+    
+    // Handle form submission
+    accountForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        // Save account to localStorage
+        const account = {
+            username,
+            email,
+            createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('userAccount', JSON.stringify(account));
+        localStorage.setItem('currentUser', username);
+        
+        // Close modal and update UI
+        accountModal.classList.add('hidden');
+        updateUserUI();
+    });
+    
+    // Handle skip button
+    skipBtn.addEventListener('click', () => {
+        accountModal.classList.add('hidden');
+        // Mark that user skipped
+        localStorage.setItem('skippedAccount', 'true');
+    });
+}
+
+// Update user UI with account info
+function updateUserUI() {
+    const currentUser = localStorage.getItem('currentUser');
+    const userBtn = document.querySelector('.btn-user');
+    if (currentUser && userBtn) {
+        userBtn.textContent = currentUser.substring(0, 1).toUpperCase();
+        userBtn.title = currentUser;
+    }
+}
+
+// Initialize modal on page load
+initializeAccountModal();
+updateUserUI();
