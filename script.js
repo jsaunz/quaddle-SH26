@@ -694,6 +694,7 @@ function openUploadModal(post = null) {
             document.getElementById('postDescription').value = post.preview || '';
             document.getElementById('postPrice').value = post.price || '';
             document.getElementById('postAddress').value = post.time || '';
+            document.getElementById('postQuad').value = post.quad || '';
             const imagesField = document.getElementById('postImages');
             const imgs = (post.images && Array.isArray(post.images)) ? post.images : (post.image ? [post.image] : []);
             if (imagesField) imagesField.value = imgs.join('\n');
@@ -721,6 +722,7 @@ function handleUploadSubmit(e) {
     const preview = document.getElementById('postDescription').value;
     const price = document.getElementById('postPrice').value;
     const time = document.getElementById('postAddress').value;
+    const quad = document.getElementById('postQuad').value;
     const imagesRaw = document.getElementById('postImages') ? document.getElementById('postImages').value : '';
     const images = imagesRaw.split('\n').map(s => s.trim()).filter(s => s.length > 0);
 
@@ -735,6 +737,7 @@ function handleUploadSubmit(e) {
                     preview,
                     price,
                     time,
+                    quad,
                     images,
                     image: images[0] || null
                 });
@@ -759,6 +762,7 @@ function handleUploadSubmit(e) {
         time,
         title,
         preview,
+        quad,
         images: images,
         image: images[0] || null,
         rating: 5.0,
