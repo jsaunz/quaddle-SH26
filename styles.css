@@ -5,14 +5,14 @@
 }
 
 :root {
-    --primary-color: #A8E6B8;
+    --primary-color: #F0B3D1;
     --secondary-color: #D4C5A9;
     --background: #F8C8DB;
     --foreground: #ffffff;
     --border: #F0B3D1;
     --text-primary: #1a1a1a;
     --text-secondary: #5a5a5a;
-    --accent: #A8E6B8;
+    --accent: #F0B3D1;
     --shadow: rgba(0, 0, 0, 0.08);
     --spacing: 8px;
     --coffee: #6F4E37; /* coffee brown */
