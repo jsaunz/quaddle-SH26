@@ -452,8 +452,6 @@ body {
 /* Post */
 .post {
     background-color: var(--foreground);
-    background-size: cover;
-    background-position: center;
     border: 1px solid var(--border);
     border-radius: 16px;
     display: flex;
@@ -461,32 +459,6 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px var(--shadow);
-    position: relative;
-}
-
-.post::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit;
-    background-size: cover;
-    background-position: center;
-    filter: blur(8px);
-    z-index: 0;
-    transition: filter 0.3s ease;
-    pointer-events: none;
-}
-
-.post:hover::before {
-    filter: blur(0);
-}
-
-.post-content {
-    position: relative;
-    z-index: 1;
 }
 
 .post:hover {
@@ -554,31 +526,31 @@ body {
     display: flex;
     gap: 8px;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     padding: 16px 16px 0 16px;
     align-items: center;
 }
 
 .post-subreddit {
-    color: #ffffff;
+    color: var(--primary-color);
     font-weight: 700;
     cursor: pointer;
     font-size: 13px;
 }
 
 .post-subreddit:hover {
-    color: #f5f5f5;
+    color: var(--secondary-color);
 }
 
 .post-time {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-secondary);
     font-size: 12px;
 }
 
 .post-title {
     font-size: 18px;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-primary);
     line-height: 1.4;
     cursor: pointer;
     margin: 0;
@@ -586,18 +558,18 @@ body {
 }
 
 .post-title:hover {
-    color: #f5f5f5;
+    color: var(--primary-color);
 }
 
 .post-provider {
     font-size: 16px;
     font-weight: 700;
-    color: #f5f5f5;
+    color: var(--text-primary);
     padding: 0 16px;
 }
 
 .post-preview {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     font-size: 14px;
     line-height: 1.6;
     margin: 0;
@@ -627,18 +599,18 @@ body {
 
 .rating-value {
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 15px;
 }
 
 .rating-reviews {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-secondary);
     font-size: 13px;
 }
 
 .rating-price {
     margin-left: auto;
-    color: #ffffff;
+    color: var(--primary-color);
     font-weight: 700;
     font-size: 15px;
 }
@@ -656,7 +628,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text-secondary);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -669,9 +641,9 @@ body {
 }
 
 .post-action:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.6);
-    color: #ffffff;
+    background-color: var(--background);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .book-btn {
