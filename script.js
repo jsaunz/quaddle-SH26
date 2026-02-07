@@ -173,13 +173,19 @@ function createPostElement(post) {
     const postDiv = document.createElement('div');
     postDiv.className = 'post';
     postDiv.dataset.postId = post.id;
+    
+    // Set background image if available
+    if (post.image) {
+        postDiv.style.backgroundImage = `url('${post.image}')`;
+        postDiv.style.backgroundSize = 'cover';
+        postDiv.style.backgroundPosition = 'center';
+    }
 
     const isFavorited = userFavorites[post.id] || false;
     const stars = '⭐'.repeat(Math.floor(post.rating));
 
     postDiv.innerHTML = `
         <div class="post-content">
-            ${post.image ? `<img src="${post.image}" alt="${post.provider}" class="post-image" onerror="this.style.display='none'">` : ''}
             <div class="post-header">
                 <span class="post-subreddit">${post.category}</span>
                 <span>•</span>

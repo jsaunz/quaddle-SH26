@@ -452,6 +452,8 @@ body {
 /* Post */
 .post {
     background-color: var(--foreground);
+    background-size: cover;
+    background-position: center;
     border: 1px solid var(--border);
     border-radius: 16px;
     display: flex;
@@ -459,6 +461,36 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px var(--shadow);
+    position: relative;
+}
+
+.post::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    background-attachment: fixed;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.post::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.post-content {
+    position: relative;
+    z-index: 1;
 }
 
 .post:hover {
@@ -514,10 +546,12 @@ body {
 }
 
 .post-content {
-    padding: 0;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    position: relative;
+    z-index: 1;
 }
 
 .post-header {
