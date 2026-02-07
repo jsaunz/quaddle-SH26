@@ -10,7 +10,8 @@ const SAMPLE_POSTS = [
         image: "https://i.pinimg.com/1200x/cc/19/7a/cc197a54488de934a33f0cc6156068fb.jpg",
         rating: 4.9,
         reviews: 234,
-        price: "$$"
+        price: "$$",
+        quad: "University of Illinois Chicago"
     },
     {
         id: 2,
@@ -22,7 +23,8 @@ const SAMPLE_POSTS = [
         image: "https://m.media-amazon.com/images/I/71bTFUg0hYL._SX679_.jpg",
         rating: 4.8,
         reviews: 189,
-        price: "$$"
+        price: "$$",
+        quad: "Northwestern University"
     },
     {
         id: 3,
@@ -34,7 +36,8 @@ const SAMPLE_POSTS = [
         image: "https://m.media-amazon.com/images/I/513MGqGlkEL._SY300_SX300_QL70_FMwebp_.jpg",
         rating: 4.9,
         reviews: 312,
-        price: "$$$"
+        price: "$$$",
+        quad: "The University of Chicago"
     },
     {
         id: 4,
@@ -46,7 +49,8 @@ const SAMPLE_POSTS = [
         image: "https://i.pinimg.com/736x/c1/ac/bd/c1acbd1baf2431be02b0889bb090efff.jpg",
         rating: 4.7,
         reviews: 421,
-        price: "$$"
+        price: "$$",
+        quad: "University of Illinois Urbana-Champaign"
     },
     {
         id: 5,
@@ -58,7 +62,8 @@ const SAMPLE_POSTS = [
         image: "https://i.pinimg.com/736x/7e/59/fd/7e59fda34e99f9bae0a0b53ab4490225.jpg",
         rating: 4.9,
         reviews: 267,
-        price: "$"
+        price: "$",
+        quad: "University of Illinois Chicago"
     },
     {
         id: 6,
@@ -70,7 +75,8 @@ const SAMPLE_POSTS = [
         image: "https://i.pinimg.com/1200x/a2/ac/3a/a2ac3a4f2a2cad7a0e6a0fb80f473d93.jpg",
         rating: 4.6,
         reviews: 198,
-        price: "$$"
+        price: "$$",
+        quad: "Northwestern University"
     },
     {
         id: 7,
@@ -82,7 +88,8 @@ const SAMPLE_POSTS = [
         image: "https://i.pinimg.com/736x/34/54/27/3454270d444a598dbf2b4a4e54a34770.jpg",
         rating: 4.8,
         reviews: 345,
-        price: "$$"
+        price: "$$",
+        quad: "The University of Chicago"
     },
     {
         id: 8,
@@ -94,7 +101,8 @@ const SAMPLE_POSTS = [
         image: "https://i.pinimg.com/736x/c1/ac/bd/c1acbd1baf2431be02b0889bb090efff.jpg",
         rating: 4.9,
         reviews: 276,
-        price: "$$"
+        price: "$$",
+        quad: "University of Illinois Urbana-Champaign"
     }
 ];
 
@@ -103,6 +111,7 @@ let posts = JSON.parse(JSON.stringify(SAMPLE_POSTS));
 let currentSort = 'hot';
 let userFavorites = {};
 let currentCategoryFilter = null;
+let currentQuadFilter = null;
 let searchQuery = '';
 
 // Initialize
@@ -110,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPosts();
     setupEventListeners();
     setupCategoryLinks();
+    setupQuadLinks();
     initializeReviewSystem();
     initializeUploadFunctionality();
 });
@@ -141,6 +151,33 @@ function setupCategoryLinks() {
     });
 }
 
+// Wire quad items to filter posts
+function setupQuadLinks() {
+    // Select the second sidebar section (Quads)
+    const quadItems = document.querySelectorAll('.sidebar .sidebar-section:nth-of-type(2) .sidebar-item');
+    quadItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => {
+            const quadText = item.textContent.trim();
+            
+            // Remove active class from all quad items
+            quadItems.forEach(quad => quad.classList.remove('active'));
+            
+            // If clicking the same quad, clear the filter
+            if (currentQuadFilter === quadText) {
+                currentQuadFilter = null;
+            } else {
+                // Set new quad filter and mark as active
+                currentQuadFilter = quadText;
+                item.classList.add('active');
+            }
+            
+            // Re-render posts with the filter
+            renderPosts();
+        });
+    });
+}
+
 // Setup event listeners
 function setupEventListeners() {
     // Sort buttons
@@ -153,17 +190,21 @@ function setupEventListeners() {
         });
     });
     
-    // Home link - clear category filter and search
+    // Home link - clear category filter, quad filter, and search
     const homeLink = document.querySelector('.nav-item[href="#"]');
     if (homeLink && homeLink.textContent.trim() === 'Home') {
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
             currentCategoryFilter = null;
+            currentQuadFilter = null;
             searchQuery = '';
             const searchBar = document.getElementById('searchBar');
             if (searchBar) searchBar.value = '';
-            // Remove active class from all category items
+            // Remove active class from all category and quad items
             document.querySelectorAll('.sidebar .sidebar-section:first-of-type .sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.sidebar .sidebar-section:nth-of-type(2) .sidebar-item').forEach(item => {
                 item.classList.remove('active');
             });
             renderPosts();
@@ -214,6 +255,13 @@ function renderPosts() {
         });
     }
     
+    // Filter by quad if a filter is active
+    if (currentQuadFilter) {
+        filteredPosts = filteredPosts.filter(post => {
+            return post.quad === currentQuadFilter;
+        });
+    }
+    
     // Filter by search query
     if (searchQuery) {
         filteredPosts = filteredPosts.filter(post => {
@@ -230,7 +278,7 @@ function renderPosts() {
 
     // Show message if no posts match the filter
     if (filteredPosts.length === 0) {
-        container.innerHTML = '<div class="no-posts">No posts found in this category.</div>';
+        container.innerHTML = '<div class="no-posts">No posts found.</div>';
         return;
     }
 
@@ -646,6 +694,7 @@ function openUploadModal(post = null) {
             document.getElementById('postDescription').value = post.preview || '';
             document.getElementById('postPrice').value = post.price || '';
             document.getElementById('postAddress').value = post.time || '';
+            document.getElementById('postQuad').value = post.quad || '';
             const imagesField = document.getElementById('postImages');
             const imgs = (post.images && Array.isArray(post.images)) ? post.images : (post.image ? [post.image] : []);
             if (imagesField) imagesField.value = imgs.join('\n');
@@ -673,6 +722,7 @@ function handleUploadSubmit(e) {
     const preview = document.getElementById('postDescription').value;
     const price = document.getElementById('postPrice').value;
     const time = document.getElementById('postAddress').value;
+    const quad = document.getElementById('postQuad').value;
     const imagesRaw = document.getElementById('postImages') ? document.getElementById('postImages').value : '';
     const images = imagesRaw.split('\n').map(s => s.trim()).filter(s => s.length > 0);
 
@@ -687,6 +737,7 @@ function handleUploadSubmit(e) {
                     preview,
                     price,
                     time,
+                    quad,
                     images,
                     image: images[0] || null
                 });
@@ -711,6 +762,7 @@ function handleUploadSubmit(e) {
         time,
         title,
         preview,
+        quad,
         images: images,
         image: images[0] || null,
         rating: 5.0,
