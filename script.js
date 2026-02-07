@@ -499,12 +499,16 @@ function initializeQuadSelectionModal() {
     
     // Show quad selection modal
     function showQuadSelectionModal() {
-        // Check if user has already selected a home quad
+        // If user already set a home quad, or if we've shown the quad selection once, don't show again
         const userHomeQuad = localStorage.getItem('userHomeQuad');
-        if (userHomeQuad) {
-            return; // Don't show if already completed
+        const seenQuad = localStorage.getItem('seenQuadSelection') === 'true';
+        if (userHomeQuad || seenQuad) {
+            return; // Don't show if already completed or already shown once
         }
-        
+
+        // Mark that quad selection was shown so it won't auto-show again
+        localStorage.setItem('seenQuadSelection', 'true');
+
         quadModal.classList.remove('hidden');
         quadStep1.classList.remove('hidden');
         quadStep2.classList.add('hidden');
@@ -553,6 +557,8 @@ function initializeQuadSelectionModal() {
                             quad: quadItem.dataset.quad
                         };
                         localStorage.setItem('userHomeQuad', JSON.stringify(homeQuad));
+                        // mark as seen/completed so it won't auto-show again
+                        localStorage.setItem('seenQuadSelection', 'true');
                         
                         // Close modal
                         closeQuadSelectionModal();
@@ -571,6 +577,8 @@ function initializeQuadSelectionModal() {
     
     // Skip button
     skipQuadBtn.addEventListener('click', () => {
+        // mark as seen so it doesn't show again
+        localStorage.setItem('seenQuadSelection', 'true');
         closeQuadSelectionModal();
     });
     
