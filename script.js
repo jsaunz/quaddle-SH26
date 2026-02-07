@@ -285,6 +285,21 @@ function escapeHtml(text) {
     return element.innerHTML;
 }
 
+// Hash a string using SHA-256 and return hex digest
+async function hashString(str) {
+    try {
+        const enc = new TextEncoder();
+        const data = enc.encode(str);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    } catch (e) {
+        console.warn('Hashing not available', e);
+        // fallback (not secure) if crypto not available
+        return String(str);
+    }
+}
+
 // Load user favorites from localStorage
 function loadUserFavorites() {
     const saved = localStorage.getItem('userFavorites');
