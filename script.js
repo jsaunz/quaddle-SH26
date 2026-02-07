@@ -1,107 +1,107 @@
-// Sample posts data
+// Sample service listings data
 const SAMPLE_POSTS = [
     {
         id: 1,
-        subreddit: "r/webdev",
-        author: "TechGuru",
-        time: "2 hours ago",
-        title: "How I Built a Production-Grade Web App in 3 Weeks",
-        preview: "Recently completed a major project and learned so much about modern web development practices. Here's what worked and what didn't...",
-        image: "https://via.placeholder.com/600x300?text=Web+Development",
-        upvotes: 2847,
-        comments: 342,
-        shares: 156
+        category: "💇 Hair & Beauty",
+        provider: "Elite Hair Studio",
+        time: "0.5 miles away",
+        title: "Premium Hair Styling & Coloring",
+        preview: "Expert stylists specializing in modern cuts, balayage, and hair treatments. Over 10 years of experience making clients look and feel their best.",
+        image: "https://via.placeholder.com/600x400?text=Elite+Hair+Studio",
+        rating: 4.9,
+        reviews: 234,
+        price: "$$"
     },
     {
         id: 2,
-        subreddit: "r/javascript",
-        author: "CodeNinja",
-        time: "4 hours ago",
-        title: "React 19 is a Game Changer - My Honest Opinion",
-        preview: "Just upgraded to React 19 and I have to say, the new features are incredible. The server components and automatic renders optimization...",
-        image: "https://via.placeholder.com/600x300?text=React+19",
-        upvotes: 1523,
-        comments: 287,
-        shares: 94
+        category: "💅 Nails & Spa",
+        provider: "Serenity Nail Bar",
+        time: "0.8 miles away",
+        title: "Luxury Manicures & Pedicures",
+        preview: "Relax and rejuvenate with our premium nail services. We use high-quality products and maintain the highest hygiene standards.",
+        image: "https://via.placeholder.com/600x400?text=Serenity+Nail+Bar",
+        rating: 4.8,
+        reviews: 189,
+        price: "$$"
     },
     {
         id: 3,
-        subreddit: "r/programming",
-        author: "DevMaster",
-        time: "5 hours ago",
-        title: "The Best JavaScript Frameworks of 2026",
-        preview: "After 15 years of web development, here's my comprehensive breakdown of the top frameworks and what makes them stand out...",
-        image: null,
-        upvotes: 3421,
-        comments: 523,
-        shares: 287
+        category: "💆 Massage & Wellness",
+        provider: "Zen Wellness Center",
+        time: "1.2 miles away",
+        title: "Therapeutic Massage & Spa Treatments",
+        preview: "Experience deep relaxation with our certified massage therapists. Swedish, deep tissue, hot stone, and more specialized treatments available.",
+        image: "https://via.placeholder.com/600x400?text=Zen+Wellness+Center",
+        rating: 4.9,
+        reviews: 312,
+        price: "$$$"
     },
     {
         id: 4,
-        subreddit: "r/design",
-        author: "DesignThinking",
-        time: "6 hours ago",
-        title: "UI Design Trends We're Seeing in 2026",
-        preview: "The design world is evolving rapidly. From glassmorphism to new typography trends, here's what's hot right now in the UI space...",
-        image: "https://via.placeholder.com/600x300?text=UI+Design+Trends",
-        upvotes: 892,
-        comments: 156,
-        shares: 67
+        category: "🏋️ Fitness & Gym",
+        provider: "Urban Fitness Studio",
+        time: "0.3 miles away",
+        title: "Personal Training & Group Classes",
+        preview: "State-of-the-art equipment, expert trainers, and motivating group classes. Start your fitness journey with us today!",
+        image: "https://via.placeholder.com/600x400?text=Urban+Fitness+Studio",
+        rating: 4.7,
+        reviews: 421,
+        price: "$$"
     },
     {
         id: 5,
-        subreddit: "r/technology",
-        author: "TechNews",
-        time: "7 hours ago",
-        title: "New WebAssembly Features Show Promise for Frontend Performance",
-        preview: "The latest WebAssembly proposals could revolutionize how we build complex applications. Early benchmarks are showing 40% performance improvements...",
-        image: "https://via.placeholder.com/600x300?text=WebAssembly",
-        upvotes: 2156,
-        comments: 412,
-        shares: 203
+        category: "🧘 Yoga & Meditation",
+        provider: "Inner Peace Yoga",
+        time: "1.5 miles away",
+        title: "Yoga Classes for All Levels",
+        preview: "Join our welcoming community for vinyasa, hatha, and restorative yoga. Beginner-friendly with experienced instructors guiding every session.",
+        image: "https://via.placeholder.com/600x400?text=Inner+Peace+Yoga",
+        rating: 4.9,
+        reviews: 267,
+        price: "$"
     },
     {
         id: 6,
-        subreddit: "r/webdev",
-        author: "CSSMaster",
-        time: "8 hours ago",
-        title: "CSS Grid vs Flexbox: When to Use Each",
-        preview: "A lot of developers still struggle with choosing between Grid and Flexbox. Let me break down when each one shines and give you a decision tree...",
-        image: null,
-        upvotes: 1678,
-        comments: 234,
-        shares: 89
+        category: "💇 Hair & Beauty",
+        provider: "Glamour Beauty Lounge",
+        time: "0.9 miles away",
+        title: "Complete Beauty Services",
+        preview: "From haircuts to makeup, we offer a full suite of beauty services. Perfect for special occasions or everyday glam.",
+        image: "https://via.placeholder.com/600x400?text=Glamour+Beauty+Lounge",
+        rating: 4.6,
+        reviews: 198,
+        price: "$$"
     },
     {
         id: 7,
-        subreddit: "r/javascript",
-        author: "AsyncGenius",
-        time: "9 hours ago",
-        title: "Understanding Async/Await: A Deep Dive",
-        preview: "Many developers use async/await without truly understanding what's happening under the hood. This guide will change how you write asynchronous code...",
-        image: "https://via.placeholder.com/600x300?text=Async+Await",
-        upvotes: 3892,
-        comments: 567,
-        shares: 345
+        category: "💅 Nails & Spa",
+        provider: "Crystal Spa Retreat",
+        time: "2.1 miles away",
+        title: "Full Service Day Spa",
+        preview: "Escape the stress of everyday life at our luxurious spa. Facials, body treatments, and nail services in a tranquil atmosphere.",
+        image: "https://via.placeholder.com/600x400?text=Crystal+Spa+Retreat",
+        rating: 4.8,
+        reviews: 345,
+        price: "$$$"
     },
     {
         id: 8,
-        subreddit: "r/programming",
-        author: "AlgorithmPro",
-        time: "10 hours ago",
-        title: "Why You Should Learn Data Structures and Algorithms",
-        preview: "Even though there are libraries for everything, understanding the fundamentals makes you a better programmer. Here's why...",
-        image: null,
-        upvotes: 2234,
-        comments: 389,
-        shares: 156
+        category: "💆 Massage & Wellness",
+        provider: "Healing Hands Massage",
+        time: "0.7 miles away",
+        title: "Sports & Therapeutic Massage",
+        preview: "Specialized in injury recovery and pain management. Our licensed therapists use evidence-based techniques for optimal results.",
+        image: "https://via.placeholder.com/600x400?text=Healing+Hands+Massage",
+        rating: 4.9,
+        reviews: 276,
+        price: "$$"
     }
 ];
 
-// Posts state
+// Services state
 let posts = JSON.parse(JSON.stringify(SAMPLE_POSTS));
 let currentSort = 'hot';
-let userVotes = {};
+let userFavorites = {};
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -123,20 +123,20 @@ function setupEventListeners() {
     });
 }
 
-// Sort posts
+// Sort services
 function sortPosts(sortType) {
     switch(sortType) {
         case 'hot':
-            posts.sort((a, b) => b.upvotes - a.upvotes);
+            posts.sort((a, b) => b.rating - a.rating);
             break;
         case 'new':
             posts.reverse();
             break;
         case 'top':
-            posts.sort((a, b) => (b.upvotes + b.comments) - (a.upvotes + a.comments));
+            posts.sort((a, b) => (b.rating * b.reviews) - (a.rating * a.reviews));
             break;
         case 'rising':
-            posts.sort((a, b) => (b.upvotes + b.comments) * Math.random() - (a.upvotes + a.comments) * Math.random());
+            posts.sort((a, b) => parseFloat(a.time) - parseFloat(b.time));
             break;
     }
     renderPosts();
@@ -153,138 +153,104 @@ function renderPosts() {
     });
 }
 
-// Create post element
+// Create service card element
 function createPostElement(post) {
     const postDiv = document.createElement('div');
     postDiv.className = 'post';
     postDiv.dataset.postId = post.id;
 
-    const voteCount = parseInt(post.upvotes);
-    const userVote = userVotes[post.id] || 0;
-    const displayVotes = voteCount + userVote;
-
-    // Get user rating badge
-    const avgRating = getUserAverageRating(post.author);
-    const ratingBadge = avgRating ? ` <span class="rating-badge" title="${RATING_DESCRIPTIONS[Math.round(avgRating)]}">${RATING_DESCRIPTIONS[Math.round(avgRating)]}</span>` : '';
+    const isFavorited = userFavorites[post.id] || false;
+    const stars = '⭐'.repeat(Math.floor(post.rating));
 
     postDiv.innerHTML = `
-        <div class="post-votes">
-            <button class="vote-btn upvote" data-vote="up" title="Upvote">▲</button>
-            <div class="vote-count">${formatNumber(displayVotes)}</div>
-            <button class="vote-btn downvote" data-vote="down" title="Downvote">▼</button>
-        </div>
         <div class="post-content">
+            ${post.image ? `<img src="${post.image}" alt="${post.provider}" class="post-image" onerror="this.style.display='none'">` : ''}
             <div class="post-header">
-                <span class="post-subreddit">${post.subreddit}</span>
-                <span>•</span>
-                <span class="post-author">u/${post.author}</span>${ratingBadge}
+                <span class="post-subreddit">${post.category}</span>
                 <span>•</span>
                 <span class="post-time">${post.time}</span>
             </div>
             <h3 class="post-title">${escapeHtml(post.title)}</h3>
+            <div class="post-provider">${post.provider}</div>
             ${post.preview ? `<p class="post-preview">${escapeHtml(post.preview)}</p>` : ''}
-            ${post.image ? `<img src="${post.image}" alt="Post image" class="post-image" onerror="this.style.display='none'">` : ''}
+            <div class="post-rating">
+                <span class="rating-stars">${stars}</span>
+                <span class="rating-value">${post.rating}</span>
+                <span class="rating-reviews">(${post.reviews} reviews)</span>
+                <span class="rating-price">${post.price}</span>
+            </div>
             <div class="post-footer">
-                <div class="post-action">
-                    <span class="post-action-icon">💬</span>
-                    <span>${formatNumber(post.comments)}</span>
-                </div>
-                <div class="post-action">
-                    <span class="post-action-icon">📤</span>
-                    <span>${formatNumber(post.shares)}</span>
-                </div>
-                <div class="post-action">
-                    <span class="post-action-icon">⋯</span>
-                    <span>More</span>
-                </div>
+                <button class="post-action book-btn">
+                    <span class="post-action-icon">📅</span>
+                    <span>Book Now</span>
+                </button>
+                <button class="post-action favorite-btn ${isFavorited ? 'favorited' : ''}">
+                    <span class="post-action-icon">${isFavorited ? '❤️' : '🤍'}</span>
+                    <span>Save</span>
+                </button>
+                <button class="post-action">
+                    <span class="post-action-icon">ℹ️</span>
+                    <span>Details</span>
+                </button>
             </div>
         </div>
     `;
 
-    // Add vote event listeners
-    const upvote = postDiv.querySelector('.upvote');
-    const downvote = postDiv.querySelector('.downvote');
-
-    upvote.addEventListener('click', () => handleVote(post.id, 'up', upvote, downvote));
-    downvote.addEventListener('click', () => handleVote(post.id, 'down', downvote, upvote));
-
-    // Set initial vote state
-    if (userVote === 1) {
-        upvote.classList.add('upvoted');
-    } else if (userVote === -1) {
-        downvote.classList.add('downvoted');
-    }
-
-    // Add click handlers for title and subreddit
+    // Add event listeners
     const title = postDiv.querySelector('.post-title');
-    const subreddit = postDiv.querySelector('.post-subreddit');
-    const author = postDiv.querySelector('.post-author');
+    const bookBtn = postDiv.querySelector('.book-btn');
+    const favoriteBtn = postDiv.querySelector('.favorite-btn');
+    const detailsBtn = postDiv.querySelectorAll('.post-action')[2];
 
-    title.addEventListener('click', () => handlePostClick(post, 'title'));
-    subreddit.addEventListener('click', (e) => {
+    title.addEventListener('click', () => handleServiceClick(post, 'view'));
+    bookBtn.addEventListener('click', () => handleServiceClick(post, 'book'));
+    favoriteBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        handlePostClick(post, 'subreddit');
+        toggleFavorite(post.id);
     });
-    author.addEventListener('click', (e) => {
-        e.stopPropagation();
-        handlePostClick(post, 'author');
-    });
-
-    // Comment button
-    const commentAction = postDiv.querySelector('.post-action');
-    commentAction.addEventListener('click', () => handlePostClick(post, 'comments'));
+    detailsBtn.addEventListener('click', () => handleServiceClick(post, 'details'));
 
     return postDiv;
 }
 
-// Handle voting
-function handleVote(postId, direction, button, oppositeButton) {
-    const currentVote = userVotes[postId] || 0;
-    let newVote = currentVote;
-
-    if (direction === 'up') {
-        newVote = currentVote === 1 ? 0 : 1;
+// Toggle favorite
+function toggleFavorite(serviceId) {
+    userFavorites[serviceId] = !userFavorites[serviceId];
+    
+    const postEl = document.querySelector(`[data-post-id="${serviceId}"]`);
+    const favoriteBtn = postEl.querySelector('.favorite-btn');
+    const icon = favoriteBtn.querySelector('.post-action-icon');
+    
+    if (userFavorites[serviceId]) {
+        favoriteBtn.classList.add('favorited');
+        icon.textContent = '❤️';
     } else {
-        newVote = currentVote === -1 ? 0 : -1;
+        favoriteBtn.classList.remove('favorited');
+        icon.textContent = '🤍';
     }
-
-    userVotes[postId] = newVote;
-
-    // Update UI
-    button.classList.toggle('upvoted', newVote === 1);
-    button.classList.toggle('downvoted', newVote === -1);
-    oppositeButton.classList.remove('upvoted', 'downvoted');
-
-    // Re-render vote count
-    const post = posts.find(p => p.id === postId);
-    const postEl = document.querySelector(`[data-post-id="${postId}"]`);
-    const voteCount = postEl.querySelector('.vote-count');
-    const displayVotes = parseInt(post.upvotes) + newVote;
-    voteCount.textContent = formatNumber(displayVotes);
-
+    
     // Save to localStorage
-    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+    localStorage.setItem('userFavorites', JSON.stringify(userFavorites));
 }
 
-// Handle post interactions
-function handlePostClick(post, action) {
+// Handle service interactions
+function handleServiceClick(service, action) {
     let message = '';
     switch(action) {
-        case 'title':
-            message = `You clicked on: "${post.title}"`;
+        case 'view':
+            message = `Viewing: ${service.provider} - ${service.title}`;
+            alert(`Opening: ${service.provider}\n\nService: ${service.title}\nRating: ${service.rating} ⭐ (${service.reviews} reviews)\nPrice: ${service.price}\nLocation: ${service.time}`);
             break;
-        case 'subreddit':
-            message = `You clicked on: ${post.subreddit}`;
+        case 'book':
+            message = `Booking: ${service.provider}`;
+            alert(`Book an appointment at ${service.provider}!\n\nIn a real app, this would open a booking calendar.`);
             break;
-        case 'author':
-            openReviewModal(post.author);
-            return;
-        case 'comments':
-            message = `Opening comments for: "${post.title}"`;
+        case 'details':
+            message = `Viewing details for: ${service.provider}`;
+            alert(`${service.provider} Details\n\nCategory: ${service.category}\n${service.preview}\n\nRating: ${service.rating} ⭐\nReviews: ${service.reviews}\nPrice Range: ${service.price}`);
             break;
     }
     console.log(message);
-    // In a real app, this would navigate or open a modal
 }
 
 // Utility functions
@@ -303,16 +269,16 @@ function escapeHtml(text) {
     return element.innerHTML;
 }
 
-// Load user votes from localStorage
-function loadUserVotes() {
-    const saved = localStorage.getItem('userVotes');
+// Load user favorites from localStorage
+function loadUserFavorites() {
+    const saved = localStorage.getItem('userFavorites');
     if (saved) {
-        userVotes = JSON.parse(saved);
+        userFavorites = JSON.parse(saved);
     }
 }
 
-// Load votes on startup
-loadUserVotes();
+// Load favorites on startup
+loadUserFavorites();
 
 // University and Quad data
 const UNIVERSITIES = {
@@ -353,8 +319,13 @@ function initializeAccountModal() {
         return;
     }
     
-    // Show the modal on load
-    accountModal.classList.remove('hidden');
+    // Show the modal on load only if no account and not logged in
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+        accountModal.classList.remove('hidden');
+    } else {
+        accountModal.classList.add('hidden');
+    }
     
     // Step 1: Move to university selection
     nextStep1Btn.addEventListener('click', () => {
@@ -446,6 +417,7 @@ function initializeAccountModal() {
         const account = {
             username,
             email,
+            password,
             university: selectedUniversity,
             universityName: UNIVERSITIES[selectedUniversity].name,
             quad: selectedQuad,
@@ -474,9 +446,16 @@ function initializeAccountModal() {
 function updateUserUI() {
     const currentUser = localStorage.getItem('currentUser');
     const userBtn = document.querySelector('.btn-user');
-    if (currentUser && userBtn) {
-        userBtn.textContent = currentUser.substring(0, 1).toUpperCase();
-        userBtn.title = currentUser;
+    if (userBtn) {
+        if (currentUser) {
+            // User is logged in - show first letter of username
+            userBtn.innerHTML = `<span style="font-size: 16px; font-weight: 700;">${currentUser.substring(0, 1).toUpperCase()}</span>`;
+            userBtn.title = `Logged in as ${currentUser} - Click to manage account`;
+        } else {
+            // User is not logged in - show icon
+            userBtn.innerHTML = '<span class="user-icon">👤</span>';
+            userBtn.title = 'Click to log in';
+        }
     }
 }
 
@@ -574,7 +553,115 @@ function initializeQuadSelectionModal() {
 // Initialize modal on page load
 initializeAccountModal();
 initializeQuadSelectionModal();
+initializeLoginModal();
 updateUserUI();
+
+// ==================== LOGIN SYSTEM ====================
+
+function initializeLoginModal() {
+    const loginModal = document.getElementById('loginModal');
+    const loginForm = document.getElementById('loginForm');
+    const closeLoginBtn = document.getElementById('closeLoginBtn');
+    const showSignupLink = document.getElementById('showSignupLink');
+    const userBtn = document.querySelector('.btn-user');
+
+    // User button click handler
+    userBtn.addEventListener('click', () => {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            // User is logged in - show options menu
+            showUserMenu();
+        } else {
+            // User is not logged in - show login modal
+            showLoginModal();
+        }
+    });
+
+    // Close login modal
+    closeLoginBtn.addEventListener('click', () => {
+        loginModal.classList.add('hidden');
+        clearLoginForm();
+    });
+
+    // Show signup from login
+    showSignupLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.classList.add('hidden');
+        clearLoginForm();
+        // Show account modal
+        const accountModal = document.getElementById('accountModal');
+        accountModal.classList.remove('hidden');
+        document.getElementById('step1').classList.remove('hidden');
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('step3').classList.add('hidden');
+    });
+
+    // Login form submission
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        // Retrieve stored account
+        const storedAccount = localStorage.getItem('userAccount');
+        
+        if (!storedAccount) {
+            alert('No account found. Please create an account first.');
+            return;
+        }
+
+        const account = JSON.parse(storedAccount);
+        
+        // Check credentials (simple check - in real app would be server-side)
+        if (account.username === username && account.password === password) {
+            // Set current user
+            localStorage.setItem('currentUser', username);
+            loginModal.classList.add('hidden');
+            clearLoginForm();
+            updateUserUI();
+            alert(`Welcome back, ${username}!`);
+        } else {
+            alert('Invalid username or password.');
+        }
+    });
+
+    // Click outside modal to close
+    loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) {
+            loginModal.classList.add('hidden');
+            clearLoginForm();
+        }
+    });
+}
+
+function showLoginModal() {
+    const loginModal = document.getElementById('loginModal');
+    loginModal.classList.remove('hidden');
+}
+
+function clearLoginForm() {
+    document.getElementById('loginUsername').value = '';
+    document.getElementById('loginPassword').value = '';
+}
+
+function showUserMenu() {
+    const currentUser = localStorage.getItem('currentUser');
+    const userAccount = localStorage.getItem('userAccount');
+    
+    let accountInfo = '';
+    if (userAccount) {
+        const account = JSON.parse(userAccount);
+        accountInfo = `\n\nUniversity: ${account.universityName || 'Not set'}\nQuad: ${account.quad || 'Not set'}`;
+    }
+    
+    const logout = confirm(`Logged in as: ${currentUser}${accountInfo}\n\nWould you like to log out?`);
+    
+    if (logout) {
+        localStorage.removeItem('currentUser');
+        updateUserUI();
+        alert('You have been logged out successfully.');
+    }
+}
 
 // ==================== USER REVIEW SYSTEM ====================
 

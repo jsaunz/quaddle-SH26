@@ -140,8 +140,35 @@
             }
 
             const username = document.getElementById('username').value;
-            alert('Account created successfully for ' + username + '!');
-            this.reset();
+            const email = document.getElementById('email').value;
+
+            // Check if account already exists
+            const existingAccount = localStorage.getItem('userAccount');
+            if (existingAccount) {
+                const existing = JSON.parse(existingAccount);
+                if (existing.username === username) {
+                    alert('Username already taken. Please choose a different username.');
+                    return;
+                }
+            }
+
+            // Create and save account
+            const account = {
+                username: username,
+                email: email,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+
+            localStorage.setItem('userAccount', JSON.stringify(account));
+            localStorage.setItem('currentUser', username);
+
+            alert('Account created successfully for ' + username + '! Redirecting to Quaddle...');
+            
+            // Redirect to main page after short delay
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
         });
     </script>
 </body>

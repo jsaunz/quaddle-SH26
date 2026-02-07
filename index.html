@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quaddle - The Front Page of the Internet</title>
+    <title>Quaddle - Book Your Next Experience</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,10 +22,10 @@
                 </nav>
             </div>
             <div class="header-center">
-                <input type="text" class="search-bar" placeholder="Search Quaddle">
+                <input type="text" class="search-bar" placeholder="Search for services, venues, or providers...">
             </div>
             <div class="header-right">
-                <button class="btn-create">Create</button>
+                <button class="btn-create">Book Now</button>
                 <button class="btn-user">
                     <span class="user-icon">👤</span>
                 </button>
@@ -37,29 +37,24 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-section">
-                <h3 class="sidebar-heading">Home</h3>
-                <div class="sidebar-item active">🏠 Home Feed</div>
+                <h3 class="sidebar-heading">Categories</h3>
+                <div class="sidebar-item active">💇 Hair & Beauty</div>
+                <div class="sidebar-item">💅 Nails & Spa</div>
+                <div class="sidebar-item">💆 Massage & Wellness</div>
+                <div class="sidebar-item">🏋️ Fitness & Gym</div>
+                <div class="sidebar-item">🧘 Yoga & Meditation</div>
             </div>
 
             <div class="sidebar-section">
-                <h3 class="sidebar-heading">Communities</h3>
-                <div class="sidebar-item">r/programming</div>
-                <div class="sidebar-item">r/webdev</div>
-                <div class="sidebar-item">r/javascript</div>
-                <div class="sidebar-item">r/design</div>
-                <div class="sidebar-item">r/technology</div>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-heading">Popular</h3>
-                <div class="sidebar-item">r/AskReddit</div>
-                <div class="sidebar-item">r/funny</div>
-                <div class="sidebar-item">r/todayilearned</div>
-                <div class="sidebar-item">r/gaming</div>
+                <h3 class="sidebar-heading">Popular Services</h3>
+                <div class="sidebar-item">Haircut & Styling</div>
+                <div class="sidebar-item">Manicure & Pedicure</div>
+                <div class="sidebar-item">Deep Tissue Massage</div>
+                <div class="sidebar-item">Personal Training</div>
             </div>
 
             <div class="sidebar-bottom">
-                <button class="btn-join">Join Community</button>
+                <button class="btn-join">List Your Business</button>
             </div>
         </aside>
 
@@ -67,10 +62,10 @@
         <main class="feed">
             <!-- Sort Options -->
             <div class="feed-options">
-                <button class="sort-btn active" data-sort="hot">Hot</button>
-                <button class="sort-btn" data-sort="new">New</button>
-                <button class="sort-btn" data-sort="top">Top</button>
-                <button class="sort-btn" data-sort="rising">Rising</button>
+                <button class="sort-btn active" data-sort="hot">Featured</button>
+                <button class="sort-btn" data-sort="new">Newest</button>
+                <button class="sort-btn" data-sort="top">Top Rated</button>
+                <button class="sort-btn" data-sort="rising">Nearby</button>
             </div>
 
             <!-- Posts Container -->
@@ -82,34 +77,34 @@
         <!-- Right Sidebar -->
         <aside class="right-sidebar">
             <div class="widget">
-                <h3>Popular Now</h3>
+                <h3>🏆 Top Rated This Week</h3>
                 <div class="trending-item">
                     <div class="trending-rank">1</div>
                     <div class="trending-content">
-                        <div class="trending-title">Building Web Apps with React</div>
-                        <div class="trending-subreddit">r/reactjs</div>
+                        <div class="trending-title">Elite Hair Studio</div>
+                        <div class="trending-subreddit">⭐ 4.9 (234 reviews)</div>
                     </div>
                 </div>
                 <div class="trending-item">
                     <div class="trending-rank">2</div>
                     <div class="trending-content">
-                        <div class="trending-title">JavaScript Tips & Tricks</div>
-                        <div class="trending-subreddit">r/javascript</div>
+                        <div class="trending-title">Serenity Spa & Wellness</div>
+                        <div class="trending-subreddit">⭐ 4.8 (189 reviews)</div>
                     </div>
                 </div>
                 <div class="trending-item">
                     <div class="trending-rank">3</div>
                     <div class="trending-content">
-                        <div class="trending-title">CSS Grid Layout Guide</div>
-                        <div class="trending-subreddit">r/webdev</div>
+                        <div class="trending-title">Urban Fitness Center</div>
+                        <div class="trending-subreddit">⭐ 4.7 (312 reviews)</div>
                     </div>
                 </div>
             </div>
 
             <div class="widget">
-                <h3>About Community</h3>
-                <p>Welcome to Quaddle, the front page of the internet. A place for almost anything under the sun.</p>
-                <button class="btn-primary">Join</button>
+                <h3>About Quaddle</h3>
+                <p>Discover and book appointments with top-rated service providers in your area. Easy booking, verified reviews, and trusted professionals.</p>
+                <button class="btn-primary">Get Started</button>
             </div>
         </aside>
     </div>
@@ -180,6 +175,23 @@
                 <p id="universityDisplay">Select your quad</p>
                 <div id="quadList" class="selection-list"></div>
                 <button type="button" class="btn-secondary" id="backBtn2">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Welcome Back!</h2>
+            <p>Log in to your Quaddle account</p>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Log In</button>
+                <button type="button" class="btn-secondary" id="closeLoginBtn">Cancel</button>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="#" id="showSignupLink">Sign up</a> or <a href="account.html">Create Account Page</a></p>
             </div>
         </div>
     </div>
