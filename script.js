@@ -448,16 +448,17 @@ function initializeAccountModal() {
     });
     
     // Finish account creation
-    function finishAccountCreation() {
+    async function finishAccountCreation() {
         const username = localStorage.getItem('tempUsername');
         const email = localStorage.getItem('tempEmail');
-        const password = localStorage.getItem('tempPassword');
+        const passwordPlain = localStorage.getItem('tempPassword') || '';
+        const passwordHash = await hashString(passwordPlain);
         
-        // Save account to localStorage
+        // Save account to localStorage (store hashed password)
         const account = {
             username,
             email,
-            password,
+            password: passwordHash,
             university: selectedUniversity,
             universityName: UNIVERSITIES[selectedUniversity].name,
             quad: selectedQuad,
@@ -465,6 +466,7 @@ function initializeAccountModal() {
         };
         localStorage.setItem('userAccount', JSON.stringify(account));
         localStorage.setItem('currentUser', username);
+        localStorage.setItem('rememberMe', 'true');
 
         // Mark that the welcome/account flow has been completed so it won't auto-show again
         localStorage.setItem('seenWelcome', 'true');
