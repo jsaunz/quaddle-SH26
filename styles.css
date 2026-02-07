@@ -479,6 +479,12 @@ body > * {
     cursor: pointer;
 }
 
+.logo-image {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+}
+
 .logo-icon {
     background: var(--primary-color);
     color: white;
@@ -489,11 +495,7 @@ body > * {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-<<<<<<< HEAD
     box-shadow: 0 2px 8px var(--shadow);
-=======
-    box-shadow: 0 2px 8px rgba(31, 58, 125, 0.3);
->>>>>>> badc06119786d9aaf52138bcd1113ba083551c76
 }
 
 .logo-text {
