@@ -424,6 +424,11 @@ function initializeAccountModal() {
     skipBtn1.addEventListener('click', () => {
         accountModal.classList.add('hidden');
         localStorage.setItem('skippedAccount', 'true');
+        
+        // Show quad selection modal after a brief delay
+        setTimeout(() => {
+            window.showQuadSelectionModal();
+        }, 500);
     });
     
     // Finish account creation
@@ -452,6 +457,11 @@ function initializeAccountModal() {
         // Close modal and update UI
         accountModal.classList.add('hidden');
         updateUserUI();
+        
+        // Show quad selection modal after a brief delay
+        setTimeout(() => {
+            window.showQuadSelectionModal();
+        }, 500);
     }
 }
 
@@ -465,6 +475,92 @@ function updateUserUI() {
     }
 }
 
+// Quad selection modal functionality (appears after account creation)
+function initializeQuadSelectionModal() {
+    const quadModal = document.getElementById('quadSelectionModal');
+    const quadStep1 = document.getElementById('quadStep1');
+    const quadStep2 = document.getElementById('quadStep2');
+    const skipQuadBtn = document.getElementById('skipQuadBtn');
+    const backQuadBtn = document.getElementById('backQuadBtn');
+    
+    let selectedQuadUniversity = null;
+    
+    // Show quad selection modal
+    function showQuadSelectionModal() {
+        quadModal.classList.remove('hidden');
+        quadStep1.classList.remove('hidden');
+        quadStep2.classList.add('hidden');
+        selectedQuadUniversity = null;
+    }
+    
+    // Close quad selection modal
+    function closeQuadSelectionModal() {
+        quadModal.classList.add('hidden');
+    }
+    
+    // University selection in quad modal
+    const quadUniversityItems = document.querySelectorAll('#quadUniversityList .selection-item');
+    quadUniversityItems.forEach(item => {
+        item.addEventListener('click', () => {
+            quadUniversityItems.forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedQuadUniversity = item.dataset.university;
+            
+            // Move to quad selection
+            setTimeout(() => {
+                quadStep1.classList.add('hidden');
+                quadStep2.classList.remove('hidden');
+                
+                // Populate quads
+                const homeQuadList = document.getElementById('homeQuadList');
+                const quadUniversityDisplay = document.getElementById('quadUniversityDisplay');
+                const univData = UNIVERSITIES[selectedQuadUniversity];
+                
+                quadUniversityDisplay.textContent = `${univData.name} Quads`;
+                homeQuadList.innerHTML = univData.quads.map(quad => `
+                    <div class="selection-item" data-quad="${quad}">
+                        <div class="selection-icon">📍</div>
+                        <div class="selection-text">${quad}</div>
+                    </div>
+                `).join('');
+                
+                // Add quad selection handlers
+                const quadItems = homeQuadList.querySelectorAll('.selection-item');
+                quadItems.forEach(quadItem => {
+                    quadItem.addEventListener('click', () => {
+                        // Save user's home quad
+                        const homeQuad = {
+                            university: selectedQuadUniversity,
+                            universityName: univData.name,
+                            quad: quadItem.dataset.quad
+                        };
+                        localStorage.setItem('userHomeQuad', JSON.stringify(homeQuad));
+                        
+                        // Close modal
+                        closeQuadSelectionModal();
+                    });
+                });
+            }, 100);
+        });
+    });
+    
+    // Back button
+    backQuadBtn.addEventListener('click', () => {
+        quadStep2.classList.add('hidden');
+        quadStep1.classList.remove('hidden');
+        selectedQuadUniversity = null;
+    });
+    
+    // Skip button
+    skipQuadBtn.addEventListener('click', () => {
+        closeQuadSelectionModal();
+    });
+    
+    // Expose function globally
+    window.showQuadSelectionModal = showQuadSelectionModal;
+}
+
 // Initialize modal on page load
 initializeAccountModal();
+initializeQuadSelectionModal();
 updateUserUI();
