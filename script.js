@@ -1,4 +1,4 @@
-// Sample services data for beauty and small business marketplace
+// Sample services data for Quaddle - the front page of the internet
 const SAMPLE_SERVICES = [
     {
         id: 1,
