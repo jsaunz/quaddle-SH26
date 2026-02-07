@@ -850,3 +850,10 @@ function openReviewModal(username) {
     reviewModal.classList.remove('hidden');
     document.getElementById('ratingDescription').textContent = 'Select a rating';
 }
+
+// Persist sample posts data so other pages can read it (e.g., details page)
+try {
+    localStorage.setItem('postsData', JSON.stringify(SAMPLE_POSTS));
+} catch (e) {
+    console.warn('Could not persist postsData to localStorage', e);
+}
