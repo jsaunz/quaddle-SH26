@@ -472,10 +472,12 @@ body {
     right: 0;
     bottom: 0;
     background: inherit;
-    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
     filter: blur(8px);
-    z-index: -1;
+    z-index: 0;
     transition: filter 0.3s ease;
+    pointer-events: none;
 }
 
 .post:hover::before {
