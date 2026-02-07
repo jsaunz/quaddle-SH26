@@ -309,11 +309,37 @@ function loadUserVotes() {
 // Load votes on startup
 loadUserVotes();
 
+// University and Quad data
+const UNIVERSITIES = {
+    uic: {
+        name: 'University of Illinois Chicago',
+        quads: ['q/engineering', 'q/business', 'q/arts', 'q/sciences', 'q/community']
+    },
+    uiuc: {
+        name: 'University of Illinois Urbana-Champaign',
+        quads: ['q/engineering', 'q/liberal-arts', 'q/business', 'q/agriculture', 'q/students']
+    },
+    uchicago: {
+        name: 'University of Chicago',
+        quads: ['q/college', 'q/graduate', 'q/business', 'q/divinity', 'q/law']
+    }
+};
+
 // Account creation modal functionality
 function initializeAccountModal() {
     const accountModal = document.getElementById('accountModal');
     const accountForm = document.getElementById('accountForm');
-    const skipBtn = document.getElementById('skipBtn');
+    const skipBtn1 = document.getElementById('skipBtn1');
+    const nextStep1Btn = document.getElementById('nextStep1Btn');
+    const backBtn1 = document.getElementById('backBtn1');
+    const backBtn2 = document.getElementById('backBtn2');
+    
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    
+    let selectedUniversity = null;
+    let selectedQuad = null;
     
     // Check if user has already created an account
     const userAccount = localStorage.getItem('userAccount');
@@ -325,33 +351,108 @@ function initializeAccountModal() {
     // Show the modal on load
     accountModal.classList.remove('hidden');
     
-    // Handle form submission
-    accountForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    // Step 1: Move to university selection
+    nextStep1Btn.addEventListener('click', () => {
         const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+        
+        if (username && email && password) {
+            // Store temp data
+            localStorage.setItem('tempUsername', username);
+            localStorage.setItem('tempEmail', email);
+            localStorage.setItem('tempPassword', password);
+            
+            // Move to step 2
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+        }
+    });
+    
+    // Step 2: University selection
+    const universityItems = document.querySelectorAll('#universityList .selection-item');
+    universityItems.forEach(item => {
+        item.addEventListener('click', () => {
+            universityItems.forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedUniversity = item.dataset.university;
+            
+            // Move to step 3 automatically
+            setTimeout(() => {
+                step2.classList.add('hidden');
+                step3.classList.remove('hidden');
+                
+                // Populate quads
+                const quadList = document.getElementById('quadList');
+                const universityDisplay = document.getElementById('universityDisplay');
+                const univData = UNIVERSITIES[selectedUniversity];
+                
+                universityDisplay.textContent = `Join a Quad - ${univData.name}`;
+                quadList.innerHTML = univData.quads.map(quad => `
+                    <div class="selection-item" data-quad="${quad}">
+                        <div class="selection-icon">📍</div>
+                        <div class="selection-text">${quad}</div>
+                    </div>
+                `).join('');
+                
+                // Add quad selection handlers
+                const quadItems = quadList.querySelectorAll('.selection-item');
+                quadItems.forEach(quadItem => {
+                    quadItem.addEventListener('click', () => {
+                        selectedQuad = quadItem.dataset.quad;
+                        finishAccountCreation();
+                    });
+                });
+            }, 100);
+        });
+    });
+    
+    // Back buttons
+    backBtn1.addEventListener('click', () => {
+        step2.classList.add('hidden');
+        step1.classList.remove('hidden');
+        selectedUniversity = null;
+    });
+    
+    backBtn2.addEventListener('click', () => {
+        step3.classList.add('hidden');
+        step2.classList.remove('hidden');
+        selectedQuad = null;
+    });
+    
+    // Skip button
+    skipBtn1.addEventListener('click', () => {
+        accountModal.classList.add('hidden');
+        localStorage.setItem('skippedAccount', 'true');
+    });
+    
+    // Finish account creation
+    function finishAccountCreation() {
+        const username = localStorage.getItem('tempUsername');
+        const email = localStorage.getItem('tempEmail');
+        const password = localStorage.getItem('tempPassword');
         
         // Save account to localStorage
         const account = {
             username,
             email,
+            university: selectedUniversity,
+            universityName: UNIVERSITIES[selectedUniversity].name,
+            quad: selectedQuad,
             createdAt: new Date().toISOString()
         };
         localStorage.setItem('userAccount', JSON.stringify(account));
         localStorage.setItem('currentUser', username);
         
+        // Clear temp data
+        localStorage.removeItem('tempUsername');
+        localStorage.removeItem('tempEmail');
+        localStorage.removeItem('tempPassword');
+        
         // Close modal and update UI
         accountModal.classList.add('hidden');
         updateUserUI();
-    });
-    
-    // Handle skip button
-    skipBtn.addEventListener('click', () => {
-        accountModal.classList.add('hidden');
-        // Mark that user skipped
-        localStorage.setItem('skippedAccount', 'true');
-    });
+    }
 }
 
 // Update user UI with account info

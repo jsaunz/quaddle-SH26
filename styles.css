@@ -63,6 +63,57 @@ body {
     font-size: 14px;
 }
 
+.modal-step {
+    display: block;
+}
+
+.modal-step.hidden {
+    display: none;
+}
+
+.selection-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.selection-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--background);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.selection-item:hover {
+    background-color: var(--foreground);
+    border-color: var(--secondary-color);
+}
+
+.selection-item.selected {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+.selection-icon {
+    font-size: 24px;
+}
+
+.selection-text {
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.selection-item.selected .selection-text {
+    color: white;
+}
+
 .modal-content form {
     display: flex;
     flex-direction: column;
