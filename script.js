@@ -328,14 +328,21 @@ function initializeAccountModal() {
     let selectedUniversity = null;
     let selectedQuad = null;
     
-    // Check if user has already created an account
+    // If an account already exists, don't show the modal
     const userAccount = localStorage.getItem('userAccount');
     if (userAccount) {
         accountModal.classList.add('hidden');
         return;
     }
-    
-    // Show the modal on load only if no account and not logged in
+
+    // If we've already shown the welcome/account flow once, don't auto-show again
+    const seenWelcome = localStorage.getItem('seenWelcome') === 'true';
+    if (seenWelcome) {
+        accountModal.classList.add('hidden');
+        return;
+    }
+
+    // Show the modal on first load only if no account and not logged in
     const currentUser = localStorage.getItem('currentUser');
     if (!currentUser) {
         accountModal.classList.remove('hidden');
@@ -416,8 +423,10 @@ function initializeAccountModal() {
     skipBtn1.addEventListener('click', () => {
         accountModal.classList.add('hidden');
         localStorage.setItem('skippedAccount', 'true');
-        
-        // Show quad selection modal after a brief delay
+        // Mark that we've shown/suppressed the welcome flow so it won't auto-show again
+        localStorage.setItem('seenWelcome', 'true');
+
+        // Show quad selection modal after a brief delay (will respect seen flag)
         setTimeout(() => {
             window.showQuadSelectionModal();
         }, 500);
@@ -441,6 +450,9 @@ function initializeAccountModal() {
         };
         localStorage.setItem('userAccount', JSON.stringify(account));
         localStorage.setItem('currentUser', username);
+
+        // Mark that the welcome/account flow has been completed so it won't auto-show again
+        localStorage.setItem('seenWelcome', 'true');
         
         // Clear temp data
         localStorage.removeItem('tempUsername');
