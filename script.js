@@ -327,6 +327,15 @@ const UNIVERSITIES = {
     }
 };
 
+// Quad emoji and description mapping
+const QUAD_INFO = {
+    'beauty': { icon: '💄', description: 'Beauty, wellness & personal care' },
+    'clothes': { icon: '👗', description: 'Fashion & clothing services' },
+    'food': { icon: '🍕', description: 'Food & dining experiences' },
+    'jewelry': { icon: '💎', description: 'Jewelry & accessories' },
+    'artwork': { icon: '🎨', description: 'Art & creative services' }
+};
+
 // Account creation modal functionality
 function initializeAccountModal() {
     const accountModal = document.getElementById('accountModal');
@@ -545,13 +554,16 @@ function initializeQuadSelectionModal() {
                 const quadUniversityDisplay = document.getElementById('quadUniversityDisplay');
                 const univData = UNIVERSITIES[selectedQuadUniversity];
                 
-                quadUniversityDisplay.textContent = `${univData.name} Quads`;
-                homeQuadList.innerHTML = univData.quads.map(quad => `
-                    <div class="selection-item" data-quad="${quad}">
-                        <div class="selection-icon">📍</div>
-                        <div class="selection-text">${quad}</div>
+                quadUniversityDisplay.textContent = `Quads at ${univData.name}`;
+                homeQuadList.innerHTML = univData.quads.map(quad => {
+                    const info = QUAD_INFO[quad] || { icon: '📍', description: quad };
+                    return `
+                    <div class="selection-item" data-quad="${quad}" style="flex-direction: column; padding: 16px; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; text-align: center;">
+                        <div style="font-size: 40px; margin-bottom: 12px;">${info.icon}</div>
+                        <div class="selection-text" style="font-weight: 600; font-size: 15px; text-transform: capitalize;">${quad}</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">${info.description}</div>
                     </div>
-                `).join('');
+                `}).join('');
                 
                 // Add quad selection handlers
                 const quadItems = homeQuadList.querySelectorAll('.selection-item');
