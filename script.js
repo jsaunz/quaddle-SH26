@@ -7,7 +7,7 @@ const SAMPLE_POSTS = [
         time: "0.5 miles away",
         title: "Premium Hair Styling & Coloring",
         preview: "Expert stylists specializing in modern cuts, balayage, and hair treatments. Over 10 years of experience making clients look and feel their best.",
-        image: "https://via.placeholder.com/600x400?text=Elite+Hair+Studio",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.9,
         reviews: 234,
         price: "$$"
@@ -19,7 +19,7 @@ const SAMPLE_POSTS = [
         time: "0.8 miles away",
         title: "Luxury Manicures & Pedicures",
         preview: "Relax and rejuvenate with our premium nail services. We use high-quality products and maintain the highest hygiene standards.",
-        image: "https://via.placeholder.com/600x400?text=Serenity+Nail+Bar",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.8,
         reviews: 189,
         price: "$$"
@@ -31,7 +31,7 @@ const SAMPLE_POSTS = [
         time: "1.2 miles away",
         title: "Therapeutic Massage & Spa Treatments",
         preview: "Experience deep relaxation with our certified massage therapists. Swedish, deep tissue, hot stone, and more specialized treatments available.",
-        image: "https://via.placeholder.com/600x400?text=Zen+Wellness+Center",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.9,
         reviews: 312,
         price: "$$$"
@@ -43,7 +43,7 @@ const SAMPLE_POSTS = [
         time: "0.3 miles away",
         title: "Personal Training & Group Classes",
         preview: "State-of-the-art equipment, expert trainers, and motivating group classes. Start your fitness journey with us today!",
-        image: "https://via.placeholder.com/600x400?text=Urban+Fitness+Studio",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.7,
         reviews: 421,
         price: "$$"
@@ -55,7 +55,7 @@ const SAMPLE_POSTS = [
         time: "1.5 miles away",
         title: "Yoga Classes for All Levels",
         preview: "Join our welcoming community for vinyasa, hatha, and restorative yoga. Beginner-friendly with experienced instructors guiding every session.",
-        image: "https://via.placeholder.com/600x400?text=Inner+Peace+Yoga",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.9,
         reviews: 267,
         price: "$"
@@ -67,7 +67,7 @@ const SAMPLE_POSTS = [
         time: "0.9 miles away",
         title: "Complete Beauty Services",
         preview: "From haircuts to makeup, we offer a full suite of beauty services. Perfect for special occasions or everyday glam.",
-        image: "https://via.placeholder.com/600x400?text=Glamour+Beauty+Lounge",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.6,
         reviews: 198,
         price: "$$"
@@ -79,7 +79,7 @@ const SAMPLE_POSTS = [
         time: "2.1 miles away",
         title: "Full Service Day Spa",
         preview: "Escape the stress of everyday life at our luxurious spa. Facials, body treatments, and nail services in a tranquil atmosphere.",
-        image: "https://via.placeholder.com/600x400?text=Crystal+Spa+Retreat",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.8,
         reviews: 345,
         price: "$$$"
@@ -91,7 +91,7 @@ const SAMPLE_POSTS = [
         time: "0.7 miles away",
         title: "Sports & Therapeutic Massage",
         preview: "Specialized in injury recovery and pain management. Our licensed therapists use evidence-based techniques for optimal results.",
-        image: "https://via.placeholder.com/600x400?text=Healing+Hands+Massage",
+        image: "https://media.istockphoto.com/id/1856117770/photo/modern-beauty-salon.jpg?s=612x612&w=0&k=20&c=dVZtsePk2pgbqDXwVkMm-yIw5imnZ2rnkAruR7zf8EA=",
         rating: 4.9,
         reviews: 276,
         price: "$$"
