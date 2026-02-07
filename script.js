@@ -107,6 +107,7 @@ let userVotes = {};
 document.addEventListener('DOMContentLoaded', () => {
     renderPosts();
     setupEventListeners();
+    initializeReviewSystem();
 });
 
 // Setup event listeners
@@ -162,6 +163,10 @@ function createPostElement(post) {
     const userVote = userVotes[post.id] || 0;
     const displayVotes = voteCount + userVote;
 
+    // Get user rating badge
+    const avgRating = getUserAverageRating(post.author);
+    const ratingBadge = avgRating ? ` <span class="rating-badge" title="${RATING_DESCRIPTIONS[Math.round(avgRating)]}">${RATING_DESCRIPTIONS[Math.round(avgRating)]}</span>` : '';
+
     postDiv.innerHTML = `
         <div class="post-votes">
             <button class="vote-btn upvote" data-vote="up" title="Upvote">▲</button>
@@ -172,7 +177,7 @@ function createPostElement(post) {
             <div class="post-header">
                 <span class="post-subreddit">${post.subreddit}</span>
                 <span>•</span>
-                <span class="post-author">u/${post.author}</span>
+                <span class="post-author">u/${post.author}</span>${ratingBadge}
                 <span>•</span>
                 <span class="post-time">${post.time}</span>
             </div>
@@ -272,8 +277,8 @@ function handlePostClick(post, action) {
             message = `You clicked on: ${post.subreddit}`;
             break;
         case 'author':
-            message = `You clicked on: u/${post.author}'s profile`;
-            break;
+            openReviewModal(post.author);
+            return;
         case 'comments':
             message = `Opening comments for: "${post.title}"`;
             break;
@@ -468,3 +473,190 @@ function updateUserUI() {
 // Initialize modal on page load
 initializeAccountModal();
 updateUserUI();
+
+// ==================== USER REVIEW SYSTEM ====================
+
+// Store for user reviews and ratings
+let userReviews = {};
+
+// Rating descriptions
+const RATING_DESCRIPTIONS = {
+    1: '⭐ Very Bad',
+    2: '⭐⭐ Bad',
+    3: '⭐⭐⭐ Okay',
+    4: '⭐⭐⭐⭐ Good',
+    5: '⭐⭐⭐⭐⭐ Very Good'
+};
+
+// Initialize review system
+function initializeReviewSystem() {
+    loadUserReviews();
+    setupReviewEventListeners();
+}
+
+// Setup review event listeners
+function setupReviewEventListeners() {
+    const reviewModal = document.getElementById('reviewModal');
+    const closeReviewBtn = document.getElementById('closeReviewBtn');
+    const submitReviewBtn = document.getElementById('submitReviewBtn');
+    const stars = document.querySelectorAll('#starRating .star');
+    
+    let currentRating = 0;
+    let currentReviewingUser = '';
+
+    // Close review modal
+    closeReviewBtn.addEventListener('click', () => {
+        reviewModal.classList.add('hidden');
+        currentRating = 0;
+        updateStars(0);
+        document.getElementById('reviewComment').value = '';
+    });
+
+    // Star hover and click
+    stars.forEach(star => {
+        star.addEventListener('mouseenter', () => {
+            const rating = parseInt(star.dataset.rating);
+            highlightStars(rating);
+        });
+
+        star.addEventListener('click', () => {
+            currentRating = parseInt(star.dataset.rating);
+            updateStars(currentRating);
+            updateRatingDescription(currentRating);
+        });
+    });
+
+    // Remove hover highlight when leaving star rating area
+    document.getElementById('starRating').addEventListener('mouseleave', () => {
+        updateStars(currentRating);
+    });
+
+    // Submit review
+    submitReviewBtn.addEventListener('click', () => {
+        if (currentRating === 0) {
+            alert('Please select a rating');
+            return;
+        }
+
+        const comment = document.getElementById('reviewComment').value;
+        submitReview(currentReviewingUser, currentRating, comment);
+
+        // Reset and close
+        reviewModal.classList.add('hidden');
+        currentRating = 0;
+        updateStars(0);
+        document.getElementById('reviewComment').value = '';
+    });
+
+    // Store reference to current reviewing user
+    window.setCurrentReviewingUser = (username) => {
+        currentReviewingUser = username;
+    };
+}
+
+// Highlight stars up to rating
+function highlightStars(rating) {
+    const stars = document.querySelectorAll('#starRating .star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('hovered');
+        } else {
+            star.classList.remove('hovered');
+        }
+    });
+}
+
+// Update stars display
+function updateStars(rating) {
+    const stars = document.querySelectorAll('#starRating .star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+// Update rating description
+function updateRatingDescription(rating) {
+    const description = document.getElementById('ratingDescription');
+    if (rating > 0) {
+        description.textContent = RATING_DESCRIPTIONS[rating];
+        description.style.color = '#ffc107';
+    } else {
+        description.textContent = 'Select a rating';
+        description.style.color = 'var(--text-secondary)';
+    }
+}
+
+// Submit review
+function submitReview(username, rating, comment) {
+    if (!userReviews[username]) {
+        userReviews[username] = [];
+    }
+
+    const review = {
+        rating,
+        comment,
+        timestamp: new Date().toISOString(),
+        rater: localStorage.getItem('currentUser') || 'Anonymous'
+    };
+
+    userReviews[username].push(review);
+    saveUserReviews();
+    alert(`Review submitted! You rated ${username} ${rating} star${rating !== 1 ? 's' : ''}.`);
+}
+
+// Save reviews to localStorage
+function saveUserReviews() {
+    localStorage.setItem('userReviews', JSON.stringify(userReviews));
+}
+
+// Load reviews from localStorage
+function loadUserReviews() {
+    const saved = localStorage.getItem('userReviews');
+    if (saved) {
+        userReviews = JSON.parse(saved);
+    }
+}
+
+// Get user average rating
+function getUserAverageRating(username) {
+    if (!userReviews[username] || userReviews[username].length === 0) {
+        return null;
+    }
+
+    const avgRating = userReviews[username].reduce((sum, review) => sum + review.rating, 0) / userReviews[username].length;
+    return avgRating.toFixed(1);
+}
+
+// Get user rating count
+function getUserRatingCount(username) {
+    if (!userReviews[username]) {
+        return 0;
+    }
+    return userReviews[username].length;
+}
+
+// Open review modal
+function openReviewModal(username) {
+    const reviewModal = document.getElementById('reviewModal');
+    const reviewUsername = document.getElementById('reviewUsername');
+    const reviewUserStats = document.getElementById('reviewUserStats');
+    
+    reviewUsername.textContent = username;
+    
+    const avgRating = getUserAverageRating(username);
+    const ratingCount = getUserRatingCount(username);
+    
+    if (avgRating) {
+        reviewUserStats.innerHTML = `Current Rating: ${RATING_DESCRIPTIONS[Math.round(avgRating)]} (${ratingCount} review${ratingCount !== 1 ? 's' : ''})`;
+    } else {
+        reviewUserStats.textContent = 'No reviews yet';
+    }
+    
+    window.setCurrentReviewingUser(username);
+    reviewModal.classList.remove('hidden');
+    document.getElementById('ratingDescription').textContent = 'Select a rating';
+}

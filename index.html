@@ -114,6 +114,29 @@
         </aside>
     </div>
 
+    <!-- User Review Modal -->
+    <div id="reviewModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Rate User: <span id="reviewUsername"></span></h2>
+            <p id="reviewUserStats"></p>
+            <div class="review-container">
+                <div class="star-rating" id="starRating">
+                    <div class="stars-feedback" id="starsFeedback">
+                        <span class="star" data-rating="1" title="Very Bad">★</span>
+                        <span class="star" data-rating="2" title="Bad">★</span>
+                        <span class="star" data-rating="3" title="Okay">★</span>
+                        <span class="star" data-rating="4" title="Good">★</span>
+                        <span class="star" data-rating="5" title="Very Good">★</span>
+                    </div>
+                </div>
+                <div id="ratingDescription" class="rating-description"></div>
+                <textarea id="reviewComment" placeholder="Add a comment (optional)" class="review-comment"></textarea>
+                <button type="button" class="btn-primary" id="submitReviewBtn">Submit Review</button>
+                <button type="button" class="btn-secondary" id="closeReviewBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Account Creation Modal -->
     <div id="accountModal" class="modal">
         <div class="modal-content">
