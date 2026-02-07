@@ -554,31 +554,31 @@ body {
     display: flex;
     gap: 8px;
     font-size: 12px;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     padding: 16px 16px 0 16px;
     align-items: center;
 }
 
 .post-subreddit {
-    color: var(--primary-color);
+    color: #ffffff;
     font-weight: 700;
     cursor: pointer;
     font-size: 13px;
 }
 
 .post-subreddit:hover {
-    color: var(--secondary-color);
+    color: #f5f5f5;
 }
 
 .post-time {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 12px;
 }
 
 .post-title {
     font-size: 18px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: #ffffff;
     line-height: 1.4;
     cursor: pointer;
     margin: 0;
@@ -586,18 +586,18 @@ body {
 }
 
 .post-title:hover {
-    color: var(--primary-color);
+    color: #f5f5f5;
 }
 
 .post-provider {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #f5f5f5;
     padding: 0 16px;
 }
 
 .post-preview {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
     line-height: 1.6;
     margin: 0;
@@ -627,18 +627,18 @@ body {
 
 .rating-value {
     font-weight: 700;
-    color: var(--text-primary);
+    color: #ffffff;
     font-size: 15px;
 }
 
 .rating-reviews {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 13px;
 }
 
 .rating-price {
     margin-left: auto;
-    color: var(--primary-color);
+    color: #ffffff;
     font-weight: 700;
     font-size: 15px;
 }
@@ -656,7 +656,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -669,9 +669,9 @@ body {
 }
 
 .post-action:hover {
-    background-color: var(--background);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #ffffff;
 }
 
 .book-btn {
