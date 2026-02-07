@@ -3,23 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account - Quaddle</title>
+    <title>My Profile - Quaddle</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .account-container {
-            max-width: 400px;
-            margin: 100px auto;
+        .profile-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            background-color: var(--foreground);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-username {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .profile-email {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: #003a8f;
+        }
+
+        .btn-logout {
+            background-color: #dc3545;
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+
+        .not-logged-in {
+            text-align: center;
             padding: 40px;
+        }
+
+        .not-logged-in h2 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .not-logged-in p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .not-logged-in a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .not-logged-in a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-form {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 30px;
             background-color: var(--foreground);
             border: 1px solid var(--border);
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
-        .account-container h1 {
+        .auth-form h2 {
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
+            margin-bottom: 25px;
             color: var(--text-primary);
         }
 
@@ -36,12 +161,13 @@
 
         .form-group input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background-color: var(--background);
             border: 1px solid var(--border);
             border-radius: 4px;
             color: var(--text-primary);
             font-size: 14px;
+            box-sizing: border-box;
         }
 
         .form-group input:focus {
@@ -56,11 +182,10 @@
             background-color: var(--secondary-color);
             color: white;
             border: none;
-            border-radius: 24px;
+            border-radius: 4px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
             transition: background-color 0.2s;
         }
 
@@ -68,19 +193,261 @@
             background-color: #003a8f;
         }
 
-        .login-link {
+        .auth-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
             color: var(--text-secondary);
         }
 
-        .login-link a {
+        .auth-link a {
             color: var(--secondary-color);
             text-decoration: none;
         }
 
-        .login-link a:hover {
+        .auth-link a:hover {
             text-decoration: underline;
+        }
+
+        .profile-sections {
+            display: grid;
+            gap: 30px;
+        }
+
+        .section {
+            background-color: var(--foreground);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state p {
+            margin-bottom: 20px;
+        }
+
+        .btn-create-post {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .btn-create-post:hover {
+            background-color: #0d47a1;
+        }
+
+        .posts-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .post-item {
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .post-item-info {
+            flex: 1;
+        }
+
+        .post-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .post-item-provider {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .post-item-preview {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .post-item-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: 15px;
+        }
+
+        .btn-edit {
+            padding: 8px 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .btn-edit:hover {
+            background-color: #0d47a1;
+        }
+
+        .btn-delete {
+            padding: 8px 12px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .review-item {
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .review-rating {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .review-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .review-comment {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+
+        .no-reviews {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--foreground);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-stats {
+                justify-content: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-actions {
+                flex-wrap: wrap;
+            }
+
+            .post-item {
+                flex-direction: column;
+            }
+
+            .post-item-actions {
+                margin-left: 0;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -93,83 +460,191 @@
                     <span class="logo-icon">Q</span>
                     <span class="logo-text">Quaddle</span>
                 </div>
+                <nav class="nav-main">
+                    <a href="index.html" class="nav-item">Home</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <button class="btn-create" onclick="handleLogout()">Log Out</button>
             </div>
         </div>
     </header>
 
-    <div class="account-container">
-        <h1>Create Account</h1>
-        <form id="signupForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required placeholder="Choose a username">
+    <!-- Not Logged In State -->
+    <div id="notLoggedIn" style="display: none;">
+        <div class="profile-container">
+            <div class="not-logged-in">
+                <h2>Welcome to Quaddle</h2>
+                <p>You need to create an account or log in to view your profile.</p>
+                <div style="margin-top: 30px;">
+                    <button class="btn-action" onclick="showLoginForm()">Log In</button>
+                    <button class="btn-action" style="background-color: var(--primary-color); margin-left: 10px;" onclick="showSignupForm()">Create Account</button>
+                </div>
+                <p style="margin-top: 20px;"><a href="index.html">← Back to Quaddle</a></p>
             </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required placeholder="your@email.com">
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required placeholder="Enter password">
-            </div>
-
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm password">
-            </div>
-
-            <button type="submit" class="btn-submit">Create Account</button>
-
-            <div class="login-link">
-                Already have an account? <a href="index.html">Go back to Quaddle</a>
-            </div>
-        </form>
+        </div>
     </div>
 
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
+    <!-- Auth Forms -->
+    <div id="authForms" style="display: none;">
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-form" style="display: none;">
+            <button class="modal-close" onclick="hideAuthForms()">×</button>
+            <h2>Log In</h2>
+            <div class="form-group">
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+            </div>
+            <button class="btn-submit" onclick="handleLogin()">Log In</button>
+            <div class="auth-link">
+                Don't have an account? <a href="#" onclick="showSignupForm(); return false;">Create one</a>
+            </div>
+        </div>
 
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
+        <!-- Signup Form -->
+        <div id="signupForm" class="auth-form" style="display: none;">
+            <button class="modal-close" onclick="hideAuthForms()">×</button>
+            <h2>Create Account</h2>
+            <div class="form-group">
+                <label for="signupUsername">Username</label>
+                <input type="text" id="signupUsername" placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" id="signupEmail" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label for="signupConfirm">Confirm Password</label>
+                <input type="password" id="signupConfirm" placeholder="Confirm password">
+            </div>
+            <button class="btn-submit" onclick="handleSignup()">Create Account</button>
+            <div class="auth-link">
+                Already have an account? <a href="#" onclick="showLoginForm(); return false;">Log in</a>
+            </div>
+        </div>
+    </div>
 
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
+    <!-- Profile View -->
+    <div id="profileView" style="display: none;">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-info">
+                    <div class="profile-avatar" id="profileAvatar">👤</div>
+                    <div class="profile-details">
+                        <div class="profile-username" id="profileUsername">Loading...</div>
+                        <div class="profile-email" id="profileEmail">Loading...</div>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <div class="stat-value" id="postCount">0</div>
+                                <div class="stat-label">Posts</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value" id="reviewCount">0</div>
+                                <div class="stat-label">Reviews</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value" id="ratingDisplay">N/A</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn-action" onclick="showCreatePostModal()">+ New Post</button>
+                    <button class="btn-action btn-logout" onclick="handleLogout()">Log Out</button>
+                </div>
+            </div>
 
-            // Check if account already exists
-            const existingAccount = localStorage.getItem('userAccount');
-            if (existingAccount) {
-                const existing = JSON.parse(existingAccount);
-                if (existing.username === username) {
-                    alert('Username already taken. Please choose a different username.');
-                    return;
-                }
-            }
+            <!-- Profile Sections -->
+            <div class="profile-sections">
+                <!-- My Posts Section -->
+                <div class="section">
+                    <div class="section-title">My Posts</div>
+                    <div id="postsSection">
+                        <div class="empty-state">
+                            <p>You haven't posted any services yet.</p>
+                            <button class="btn-create-post" onclick="showCreatePostModal()">Create Your First Post</button>
+                        </div>
+                    </div>
+                </div>
 
-            // Create and save account
-            const account = {
-                username: username,
-                email: email,
-                password: password,
-                createdAt: new Date().toISOString()
-            };
+                <!-- Reviews Section -->
+                <div class="section">
+                    <div class="section-title">Reviews (Received)</div>
+                    <div id="reviewsSection">
+                        <div class="no-reviews">No reviews yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            localStorage.setItem('userAccount', JSON.stringify(account));
-            localStorage.setItem('currentUser', username);
+    <!-- Create/Edit Post Modal -->
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCreatePostModal()">×</button>
+            <div class="modal-header">Create a New Post</div>
+            <form id="createPostForm">
+                <div class="form-group">
+                    <label for="postTitle">Service Title</label>
+                    <input type="text" id="postTitle" placeholder="e.g., Premium Hair Styling" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="postProvider">Provider Name</label>
+                        <input type="text" id="postProvider" placeholder="Your business name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postCategory">Category</label>
+                        <select id="postCategory" required style="padding: 10px; background-color: var(--background); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary);">
+                            <option value="">Select a category</option>
+                            <option value="💇 Hair & Beauty">💇 Hair & Beauty</option>
+                            <option value="💅 Nails & Spa">💅 Nails & Spa</option>
+                            <option value="💆 Massage & Wellness">💆 Massage & Wellness</option>
+                            <option value="🏋️ Fitness & Gym">🏋️ Fitness & Gym</option>
+                            <option value="🧘 Yoga & Meditation">🧘 Yoga & Meditation</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="postPrice">Price Range</label>
+                        <select id="postPrice" required style="padding: 10px; background-color: var(--background); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary);">
+                            <option value="">Select price range</option>
+                            <option value="$">$ (Budget)</option>
+                            <option value="$$">$$ (Moderate)</option>
+                            <option value="$$$">$$$ (Premium)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="postDistance">Distance/Location</label>
+                        <input type="text" id="postDistance" placeholder="e.g., 0.5 miles away" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="postDescription">Description</label>
+                    <textarea id="postDescription" placeholder="Describe your service..." style="padding: 10px; background-color: var(--background); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); min-height: 120px; resize: vertical;" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="postImage">Image URL</label>
+                        <input type="url" id="postImage" placeholder="https://example.com/image.jpg" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit" style="margin-top: 20px;">Create Post</button>
+            </form>
+        </div>
+    </div>
 
-            alert('Account created successfully for ' + username + '! Redirecting to Quaddle...');
-            
-            // Redirect to main page after short delay
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
-        });
-    </script>
+    <script src="profile.js"></script>
 </body>
 </html>
