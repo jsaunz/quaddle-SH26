@@ -174,13 +174,6 @@ function createPostElement(post) {
     postDiv.className = 'post';
     postDiv.dataset.postId = post.id;
     
-    // Set background image if available
-    if (post.image) {
-        postDiv.style.backgroundImage = `url('${post.image}')`;
-        postDiv.style.backgroundSize = 'cover';
-        postDiv.style.backgroundPosition = 'center';
-    }
-
     const isFavorited = userFavorites[post.id] || false;
     const stars = '⭐'.repeat(Math.floor(post.rating));
 
