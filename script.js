@@ -2,7 +2,7 @@
 const SAMPLE_POSTS = [
     {
         id: 1,
-        category: "💇 Hair & Beauty",
+        category: "✨ Personal Care",
         provider: "Elite Hair Studio",
         time: "0.5 miles away",
         title: "Premium Hair Styling & Coloring",
@@ -14,7 +14,7 @@ const SAMPLE_POSTS = [
     },
     {
         id: 2,
-        category: "💅 Nails & Spa",
+        category: "� Styling & Grooming",
         provider: "Serenity Nail Bar",
         time: "0.8 miles away",
         title: "Luxury Manicures & Pedicures",
@@ -26,7 +26,7 @@ const SAMPLE_POSTS = [
     },
     {
         id: 3,
-        category: "💆 Massage & Wellness",
+        category: "🧖 Spa & Wellness",
         provider: "Zen Wellness Center",
         time: "1.2 miles away",
         title: "Therapeutic Massage & Spa Treatments",
@@ -62,7 +62,7 @@ const SAMPLE_POSTS = [
     },
     {
         id: 6,
-        category: "💇 Hair & Beauty",
+        category: "✨ Personal Care",
         provider: "Glamour Beauty Lounge",
         time: "0.9 miles away",
         title: "Complete Beauty Services",
@@ -74,7 +74,7 @@ const SAMPLE_POSTS = [
     },
     {
         id: 7,
-        category: "💅 Nails & Spa",
+        category: "� Styling & Grooming",
         provider: "Crystal Spa Retreat",
         time: "2.1 miles away",
         title: "Full Service Day Spa",
@@ -86,7 +86,7 @@ const SAMPLE_POSTS = [
     },
     {
         id: 8,
-        category: "💆 Massage & Wellness",
+        category: "🧖 Spa & Wellness",
         provider: "Healing Hands Massage",
         time: "0.7 miles away",
         title: "Sports & Therapeutic Massage",
