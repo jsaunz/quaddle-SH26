@@ -5,14 +5,14 @@
 }
 
 :root {
-    --primary-color: #1f3a7d;
-    --secondary-color: #d4c5a9;
-    --background: #f5f1e8;
+    --primary-color: #A8E6B8;
+    --secondary-color: #D4C5A9;
+    --background: #F8C8DB;
     --foreground: #ffffff;
-    --border: #e8dcc8;
+    --border: #F0B3D1;
     --text-primary: #1a1a1a;
     --text-secondary: #5a5a5a;
-    --accent: #3d5a80;
+    --accent: #A8E6B8;
     --shadow: rgba(0, 0, 0, 0.08);
     --spacing: 8px;
 }
@@ -211,7 +211,7 @@ body {
 }
 
 .logo-icon {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     color: white;
     width: 40px;
     height: 40px;
@@ -282,7 +282,7 @@ body {
 
 .btn-create,
 .btn-user {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     border: none;
     color: white;
     padding: 10px 24px;
@@ -371,7 +371,7 @@ body {
 }
 
 .sidebar-item.active {
-    background: linear-gradient(135deg, rgba(31, 58, 125, 0.15), rgba(212, 197, 169, 0.15));
+    background: rgba(168, 230, 184, 0.3);
     color: var(--primary-color);
     font-weight: 600;
 }
@@ -383,7 +383,7 @@ body {
 
 .btn-join {
     width: 100%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     color: white;
     border: none;
     padding: 12px 16px;
@@ -436,7 +436,7 @@ body {
 }
 
 .sort-btn.active {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     border: none;
     color: white;
     box-shadow: 0 2px 8px rgba(31, 58, 125, 0.3);
@@ -666,7 +666,7 @@ body {
 }
 
 .book-btn {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     color: white;
     border: none;
     font-weight: 700;
@@ -842,7 +842,7 @@ body {
 
 .btn-primary {
     width: 100%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     color: white;
     border: none;
     padding: 12px 16px;
