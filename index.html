@@ -207,34 +207,43 @@
 
     <!-- Quad Selection Modal (after account setup) -->
     <div id="quadSelectionModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 550px;">
             <!-- Step 1: University Selection for Quad -->
             <div id="quadStep1" class="modal-step">
-                <h2>Choose Your Home Quad</h2>
-                <p>Select the university where you'd like to join a quad</p>
-                <div id="quadUniversityList" class="selection-list">
-                    <div class="selection-item" data-university="uic">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Illinois Chicago</div>
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <h2 style="margin-bottom: 8px;">🎓 Choose Your Campus</h2>
+                    <p style="color: var(--text-secondary); font-size: 14px;">Select your university to discover your quad community</p>
+                </div>
+                <div id="quadUniversityList" class="selection-list" style="gap: 12px; flex-direction: column;">
+                    <div class="selection-item" data-university="uic" style="flex-direction: column; padding: 18px; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">🏙️</div>
+                        <div class="selection-text" style="font-weight: 600; font-size: 15px;">University of Illinois Chicago</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Urban campus • Downtown location</div>
                     </div>
-                    <div class="selection-item" data-university="uiuc">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Illinois Urbana-Champaign</div>
+                    <div class="selection-item" data-university="uiuc" style="flex-direction: column; padding: 18px; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">🌾</div>
+                        <div class="selection-text" style="font-weight: 600; font-size: 15px;">University of Illinois Urbana-Champaign</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Flagship campus • Research hub</div>
                     </div>
-                    <div class="selection-item" data-university="uchicago">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Chicago</div>
+                    <div class="selection-item" data-university="uchicago" style="flex-direction: column; padding: 18px; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">🏛️</div>
+                        <div class="selection-text" style="font-weight: 600; font-size: 15px;">University of Chicago</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Elite institution • South side</div>
                     </div>
                 </div>
-                <button type="button" class="btn-secondary" id="skipQuadBtn">Skip</button>
+                <button type="button" class="btn-secondary" id="skipQuadBtn" style="width: 100%; margin-top: 24px;">Skip This Step</button>
             </div>
 
             <!-- Step 2: Quad Selection -->
             <div id="quadStep2" class="modal-step hidden">
-                <h2>Select Your Quad</h2>
-                <p id="quadUniversityDisplay">Choose a quad to join</p>
-                <div id="homeQuadList" class="selection-list"></div>
-                <button type="button" class="btn-secondary" id="backQuadBtn">Back</button>
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <h2 style="margin-bottom: 8px;">🌟 Select Your Quad</h2>
+                    <p id="quadUniversityDisplay" style="color: var(--text-secondary); font-size: 14px;"></p>
+                </div>
+                <div id="homeQuadList" class="selection-list" style="gap: 12px; flex-direction: column;"></div>
+                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                    <button type="button" class="btn-secondary" id="backQuadBtn" style="flex: 1;">Back</button>
+                </div>
             </div>
         </div>
     </div>
