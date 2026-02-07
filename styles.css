@@ -448,11 +448,22 @@ body {
 }
 
 .vote-btn.upvoted {
-    color: #818384;
+    color: #2e7d32; /* green */
 }
 
 .vote-btn.downvoted {
-    color: #818384;
+    color: #c62828; /* red */
+}
+
+/* Preserve up/down colors on hover and give a subtle background */
+.vote-btn.upvoted:hover {
+    color: #2e7d32;
+    background-color: rgba(46, 125, 50, 0.08);
+}
+
+.vote-btn.downvoted:hover {
+    color: #c62828;
+    background-color: rgba(198, 40, 40, 0.08);
 }
 
 .vote-count {
