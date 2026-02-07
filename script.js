@@ -103,6 +103,7 @@ let posts = JSON.parse(JSON.stringify(SAMPLE_POSTS));
 let currentSort = 'hot';
 let userFavorites = {};
 let currentCategoryFilter = null;
+let searchQuery = '';
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -152,16 +153,28 @@ function setupEventListeners() {
         });
     });
     
-    // Home link - clear category filter
+    // Home link - clear category filter and search
     const homeLink = document.querySelector('.nav-item[href="#"]');
     if (homeLink && homeLink.textContent.trim() === 'Home') {
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
             currentCategoryFilter = null;
+            searchQuery = '';
+            const searchBar = document.getElementById('searchBar');
+            if (searchBar) searchBar.value = '';
             // Remove active class from all category items
             document.querySelectorAll('.sidebar .sidebar-section:first-of-type .sidebar-item').forEach(item => {
                 item.classList.remove('active');
             });
+            renderPosts();
+        });
+    }
+    
+    // Search bar
+    const searchBar = document.getElementById('searchBar');
+    if (searchBar) {
+        searchBar.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
             renderPosts();
         });
     }
@@ -198,6 +211,20 @@ function renderPosts() {
             // Match the category emoji or text
             return post.category.includes(currentCategoryFilter) || 
                    post.category.toLowerCase().includes(currentCategoryFilter.toLowerCase());
+        });
+    }
+    
+    // Filter by search query
+    if (searchQuery) {
+        filteredPosts = filteredPosts.filter(post => {
+            const searchableText = [
+                post.title,
+                post.provider,
+                post.category,
+                post.preview,
+                post.time
+            ].join(' ').toLowerCase();
+            return searchableText.includes(searchQuery);
         });
     }
 
