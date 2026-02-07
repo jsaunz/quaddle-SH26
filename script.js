@@ -617,6 +617,9 @@ function initializeLoginModal() {
     const closeLoginBtn = document.getElementById('closeLoginBtn');
     const showSignupLink = document.getElementById('showSignupLink');
     const userBtn = document.querySelector('.btn-user');
+    const loginError = document.getElementById('loginError');
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    const rememberMeCheckbox = document.getElementById('rememberMe');
 
     // User button click handler
     userBtn.addEventListener('click', () => {
@@ -634,6 +637,7 @@ function initializeLoginModal() {
     closeLoginBtn.addEventListener('click', () => {
         loginModal.classList.add('hidden');
         clearLoginForm();
+        if (loginError) loginError.textContent = '';
     });
 
     // Show signup from login
@@ -641,6 +645,7 @@ function initializeLoginModal() {
         e.preventDefault();
         loginModal.classList.add('hidden');
         clearLoginForm();
+        if (loginError) loginError.textContent = '';
         // Show account modal
         const accountModal = document.getElementById('accountModal');
         accountModal.classList.remove('hidden');
@@ -649,32 +654,54 @@ function initializeLoginModal() {
         document.getElementById('step3').classList.add('hidden');
     });
 
+    // Toggle password visibility
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', () => {
+            const pass = document.getElementById('loginPassword');
+            if (!pass) return;
+            if (pass.type === 'password') {
+                pass.type = 'text';
+                togglePasswordBtn.textContent = '🙈';
+            } else {
+                pass.type = 'password';
+                togglePasswordBtn.textContent = '👁️';
+            }
+        });
+    }
+
     // Login form submission
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
+        if (loginError) loginError.textContent = '';
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value || '';
 
         // Retrieve stored account
         const storedAccount = localStorage.getItem('userAccount');
         
         if (!storedAccount) {
-            alert('No account found. Please create an account first.');
+            if (loginError) loginError.textContent = 'No account found. Please create an account first.';
             return;
         }
 
         const account = JSON.parse(storedAccount);
-        
-        // Check credentials (simple check - in real app would be server-side)
-        if (account.username === username && account.password === password) {
+        // Verify username matches
+        if (account.username !== username) {
+            if (loginError) loginError.textContent = 'Invalid username or password.';
+            return;
+        }
+
+        const hashed = await hashString(password);
+        if (account.password === hashed) {
             // Set current user
             localStorage.setItem('currentUser', username);
+            const remember = rememberMeCheckbox && rememberMeCheckbox.checked;
+            localStorage.setItem('rememberMe', remember ? 'true' : 'false');
             loginModal.classList.add('hidden');
             clearLoginForm();
             updateUserUI();
-            alert(`Welcome back, ${username}!`);
         } else {
-            alert('Invalid username or password.');
+            if (loginError) loginError.textContent = 'Invalid username or password.';
         }
     });
 
@@ -683,6 +710,7 @@ function initializeLoginModal() {
         if (e.target === loginModal) {
             loginModal.classList.add('hidden');
             clearLoginForm();
+            if (loginError) loginError.textContent = '';
         }
     });
 }
