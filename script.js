@@ -313,15 +313,15 @@ loadUserVotes();
 const UNIVERSITIES = {
     uic: {
         name: 'University of Illinois Chicago',
-        quads: ['q/engineering', 'q/business', 'q/arts', 'q/sciences', 'q/community']
+        quads: ['beauty', 'clothes', 'food', 'jewelry', 'artwork']
     },
     uiuc: {
         name: 'University of Illinois Urbana-Champaign',
-        quads: ['q/engineering', 'q/liberal-arts', 'q/business', 'q/agriculture', 'q/students']
+        quads: ['beauty', 'clothes', 'food', 'jewelry', 'artwork']
     },
     uchicago: {
         name: 'University of Chicago',
-        quads: ['q/college', 'q/graduate', 'q/business', 'q/divinity', 'q/law']
+        quads: ['beauty', 'clothes', 'food', 'jewelry', 'artwork']
     }
 };
 
@@ -487,6 +487,12 @@ function initializeQuadSelectionModal() {
     
     // Show quad selection modal
     function showQuadSelectionModal() {
+        // Check if user has already selected a home quad
+        const userHomeQuad = localStorage.getItem('userHomeQuad');
+        if (userHomeQuad) {
+            return; // Don't show if already completed
+        }
+        
         quadModal.classList.remove('hidden');
         quadStep1.classList.remove('hidden');
         quadStep2.classList.add('hidden');
