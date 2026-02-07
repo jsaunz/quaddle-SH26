@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category - Quaddle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">Q</span>
+                    <span class="logo-text">Quaddle</span>
+                </div>
+                <nav class="nav-main">
+                    <a href="index.html" class="nav-item">Home</a>
+                </nav>
+            </div>
+            <div class="header-center">
+                <input type="text" class="search-bar" placeholder="Search for services, venues, or providers...">
+            </div>
+            <div class="header-right">
+                <button class="btn-create">Book Now</button>
+                <button class="btn-user">
+                    <span class="user-icon">👤</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="feed" style="max-width:1000px; margin: 24px auto;">
+        <h2 id="categoryTitle">Category</h2>
+        <div id="postsContainer" class="posts-container"></div>
+        <div style="margin-top:16px;">
+            <button id="backBtn" class="btn-secondary">Back</button>
+        </div>
+    </main>
+
+    <script src="category.js"></script>
+</body>
+</html>
