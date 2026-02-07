@@ -14,7 +14,7 @@ const SAMPLE_POSTS = [
     },
     {
         id: 2,
-        category: "✨ Nails",
+        category: "💅 Manicure & Pedicure",
         provider: "Serenity Nail Bar",
         time: "0.8 miles away",
         title: "Luxury Manicures & Pedicures",
@@ -102,6 +102,7 @@ const SAMPLE_POSTS = [
 let posts = JSON.parse(JSON.stringify(SAMPLE_POSTS));
 let currentSort = 'hot';
 let userFavorites = {};
+let currentCategoryFilter = null;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -112,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeUploadFunctionality();
 });
 
-// Wire left-sidebar category items to open a category page
+// Wire left-sidebar category items to filter posts
 function setupCategoryLinks() {
     // Select the first sidebar section (Categories)
     const categoryItems = document.querySelectorAll('.sidebar .sidebar-section:first-of-type .sidebar-item');
@@ -120,8 +121,21 @@ function setupCategoryLinks() {
         item.style.cursor = 'pointer';
         item.addEventListener('click', () => {
             const categoryText = item.textContent.trim();
-            // Navigate to category page
-            window.location.href = `category.html?category=${encodeURIComponent(categoryText)}`;
+            
+            // Remove active class from all category items
+            categoryItems.forEach(cat => cat.classList.remove('active'));
+            
+            // If clicking the same category, clear the filter
+            if (currentCategoryFilter === categoryText) {
+                currentCategoryFilter = null;
+            } else {
+                // Set new category filter and mark as active
+                currentCategoryFilter = categoryText;
+                item.classList.add('active');
+            }
+            
+            // Re-render posts with the filter
+            renderPosts();
         });
     });
 }
@@ -163,7 +177,23 @@ function renderPosts() {
     const container = document.getElementById('postsContainer');
     container.innerHTML = '';
 
-    posts.forEach(post => {
+    // Filter posts by category if a filter is active
+    let filteredPosts = posts;
+    if (currentCategoryFilter) {
+        filteredPosts = posts.filter(post => {
+            // Match the category emoji or text
+            return post.category.includes(currentCategoryFilter) || 
+                   post.category.toLowerCase().includes(currentCategoryFilter.toLowerCase());
+        });
+    }
+
+    // Show message if no posts match the filter
+    if (filteredPosts.length === 0) {
+        container.innerHTML = '<div class="no-posts">No posts found in this category.</div>';
+        return;
+    }
+
+    filteredPosts.forEach(post => {
         const postEl = createPostElement(post);
         container.appendChild(postEl);
     });
