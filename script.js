@@ -107,8 +107,23 @@ let userFavorites = {};
 document.addEventListener('DOMContentLoaded', () => {
     renderPosts();
     setupEventListeners();
+    setupCategoryLinks();
     initializeReviewSystem();
 });
+
+// Wire left-sidebar category items to open a category page
+function setupCategoryLinks() {
+    // Select the first sidebar section (Categories)
+    const categoryItems = document.querySelectorAll('.sidebar .sidebar-section:first-of-type .sidebar-item');
+    categoryItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => {
+            const categoryText = item.textContent.trim();
+            // Navigate to category page
+            window.location.href = `category.html?category=${encodeURIComponent(categoryText)}`;
+        });
+    });
+}
 
 // Setup event listeners
 function setupEventListeners() {
