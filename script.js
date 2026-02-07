@@ -151,6 +151,20 @@ function setupEventListeners() {
             sortPosts(currentSort);
         });
     });
+    
+    // Home link - clear category filter
+    const homeLink = document.querySelector('.nav-item[href="#"]');
+    if (homeLink && homeLink.textContent.trim() === 'Home') {
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentCategoryFilter = null;
+            // Remove active class from all category items
+            document.querySelectorAll('.sidebar .sidebar-section:first-of-type .sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            renderPosts();
+        });
+    }
 }
 
 // Sort services
