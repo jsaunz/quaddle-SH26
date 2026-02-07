@@ -3,7 +3,7 @@ const SAMPLE_POSTS = [
     {
         id: 1,
         category: "✂️ Haircuts",
-        provider: "Elite Hair Studio",
+        provider: "Hair by Deb",
         time: "0.5 miles away",
         title: "Professional Haircuts & Styling",
         preview: "Expert stylists specializing in modern cuts, fades, and hair treatments. Professional haircuts for all hair types and styles.",
