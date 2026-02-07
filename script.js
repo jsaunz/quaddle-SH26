@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 // Sample posts data
 const SAMPLE_POSTS = [
+=======
+// Sample services data for Quaddle - the front page of the internet
+const SAMPLE_SERVICES = [
+>>>>>>> b01a5e7ad89bf94e3d388f15ed32346e49c1b225
     {
         id: 1,
         subreddit: "r/webdev",
