@@ -675,6 +675,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: sticky;
+    top: 76px;
+    height: max-content;
 }
 
 .widget {
@@ -683,17 +686,42 @@ body {
     border-radius: 16px;
     padding: 20px;
     height: max-content;
-    position: sticky;
-    top: 76px;
     box-shadow: 0 2px 8px var(--shadow);
 }
 
-.widget h3 {
-    margin-top: 0;
+.widget:last-child {
+    margin-bottom: 0;
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 12px;
+}
+
+.widget h3 {
+    margin: 0;
     font-size: 14px;
     font-weight: 700;
     color: var(--text-primary);
+}
+
+.btn-clear-all {
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-clear-all:hover {
+    background-color: #d81b60;
+    transform: translateY(-1px);
 }
 
 .widget p {
@@ -742,6 +770,53 @@ body {
 }
 
 .trending-subreddit {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* Bookings Widget */
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.no-bookings {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 13px;
+    padding: 20px 12px;
+    font-style: italic;
+}
+
+.booking-item {
+    padding: 12px;
+    background-color: var(--background);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+    transition: all 0.2s;
+}
+
+.booking-item:hover {
+    background-color: rgba(124, 92, 219, 0.05);
+    transform: translateX(2px);
+}
+
+.booking-provider {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.booking-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.booking-date,
+.booking-time {
     font-size: 12px;
     color: var(--text-secondary);
 }
@@ -918,5 +993,225 @@ body {
     .sort-btn {
         padding: 6px 12px;
         font-size: 12px;
+    }
+}
+
+/* Booking Modal */
+.booking-modal {
+    display: flex;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.booking-modal.hidden {
+    display: none;
+}
+
+.booking-panel {
+    background-color: var(--foreground);
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.booking-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+}
+
+.booking-header h2 {
+    font-size: 24px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.booking-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.booking-step {
+    display: block;
+}
+
+.booking-step.hidden {
+    display: none;
+}
+
+.booking-step h3 {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.calendar-date {
+    padding: 16px 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--foreground);
+}
+
+.calendar-date:hover {
+    border-color: var(--primary-color);
+    background-color: var(--background);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.calendar-date.selected {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.date-day {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.calendar-date.selected .date-day {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.date-number {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.date-month {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.calendar-date.selected .date-month {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Time Slots */
+.selected-date-display {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    padding: 12px;
+    background-color: var(--background);
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.time-slot {
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--foreground);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.time-slot:hover {
+    border-color: var(--secondary-color);
+    background-color: var(--background);
+    transform: translateY(-1px);
+}
+
+.time-slot.selected {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+/* Booking Summary */
+.booking-summary {
+    background-color: var(--background);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.booking-summary h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.booking-summary p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.booking-summary p strong {
+    color: var(--text-primary);
+    display: inline-block;
+    width: 80px;
+}
+
+.booking-summary span {
+    color: var(--text-primary);
+}
+
+.btn-book-confirm {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+/* Responsive Booking Modal */
+@media (max-width: 600px) {
+    .booking-panel {
+        padding: 24px;
+        max-width: 95%;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+    }
+
+    .time-slots {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
+
+    .booking-header h2 {
+        font-size: 20px;
     }
 }

@@ -46,11 +46,11 @@
             </div>
 
             <div class="sidebar-section">
-                <h3 class="sidebar-heading">Popular Services</h3>
-                <div class="sidebar-item">Haircut & Styling</div>
-                <div class="sidebar-item">Manicure & Pedicure</div>
-                <div class="sidebar-item">Deep Tissue Massage</div>
-                <div class="sidebar-item">Personal Training</div>
+                <h3 class="sidebar-heading">Quads</h3>
+                <div class="sidebar-item">UIC</div>
+                <div class="sidebar-item">Urbana</div>
+                <div class="sidebar-item">UChicago</div>
+                <div class="sidebar-item">Northwestern</div>
             </div>
 
             <div class="sidebar-bottom">
@@ -98,6 +98,16 @@
                         <div class="trending-title">Urban Fitness Center</div>
                         <div class="trending-subreddit">⭐ 4.7 (312 reviews)</div>
                     </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-header">
+                    <h3>📅 Bookings</h3>
+                    <button class="btn-clear-all" id="clearAllBookingsBtn">Clear All</button>
+                </div>
+                <div id="bookingsList" class="bookings-list">
+                    <div class="no-bookings">No Bookings Available</div>
                 </div>
             </div>
         </aside>
@@ -229,6 +239,33 @@
                 <p id="quadUniversityDisplay">Choose a quad to join</p>
                 <div id="homeQuadList" class="selection-list"></div>
                 <button type="button" class="btn-secondary" id="backQuadBtn">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal hidden">
+        <div class="booking-panel">
+            <div class="booking-header">
+                <h2 id="bookingProviderName"></h2>
+                <p id="bookingServiceTitle"></p>
+            </div>
+            <div id="dateSelection" class="booking-step">
+                <h3>Select a Date</h3>
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+            <div id="timeSelection" class="booking-step hidden">
+                <h3>Select a Time</h3>
+                <div class="selected-date-display" id="selectedDateDisplay"></div>
+                <div id="timeSlots" class="time-slots"></div>
+            </div>
+            <div id="confirmSelection" class="booking-step hidden">
+                <div class="booking-summary">
+                    <h3>Confirm Your Booking</h3>
+                    <p><strong>Date:</strong> <span id="confirmDate"></span></p>
+                    <p><strong>Time:</strong> <span id="confirmTime"></span></p>
+                </div>
+                <button class="btn-primary btn-book-confirm" id="confirmBookingBtn">Book Now</button>
             </div>
         </div>
     </div>

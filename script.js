@@ -257,7 +257,7 @@ function handleServiceClick(service, action) {
             break;
         case 'book':
             message = `Booking: ${service.provider}`;
-            alert(`Book an appointment at ${service.provider}!\n\nIn a real app, this would open a booking calendar.`);
+            openBookingModal(service);
             break;
         case 'details':
                 message = `Viewing details for: ${service.provider}`;
@@ -296,6 +296,209 @@ async function hashString(str) {
         console.warn('Hashing not available', e);
         // fallback (not secure) if crypto not available
         return String(str);
+    }
+}
+
+// Booking System
+let currentBooking = {
+    service: null,
+    date: null,
+    time: null
+};
+
+let userBookings = JSON.parse(localStorage.getItem('userBookings')) || [];
+
+function openBookingModal(service) {
+    currentBooking.service = service;
+    currentBooking.date = null;
+    currentBooking.time = null;
+    
+    const modal = document.getElementById('bookingModal');
+    const providerName = document.getElementById('bookingProviderName');
+    const serviceTitle = document.getElementById('bookingServiceTitle');
+    
+    providerName.textContent = service.provider;
+    serviceTitle.textContent = service.title;
+    
+    // Show date selection
+    document.getElementById('dateSelection').classList.remove('hidden');
+    document.getElementById('timeSelection').classList.add('hidden');
+    document.getElementById('confirmSelection').classList.add('hidden');
+    
+    generateCalendar();
+    modal.classList.remove('hidden');
+}
+
+function generateCalendar() {
+    const grid = document.getElementById('calendarGrid');
+    grid.innerHTML = '';
+    
+    const today = new Date();
+    const daysToShow = 14; // Show 2 weeks
+    
+    for (let i = 0; i < daysToShow; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        
+        const dateEl = document.createElement('div');
+        dateEl.className = 'calendar-date';
+        dateEl.innerHTML = `
+            <div class="date-day">${date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
+            <div class="date-number">${date.getDate()}</div>
+            <div class="date-month">${date.toLocaleDateString('en-US', { month: 'short' })}</div>
+        `;
+        dateEl.dataset.date = date.toISOString().split('T')[0];
+        
+        dateEl.addEventListener('click', () => selectDate(date, dateEl));
+        grid.appendChild(dateEl);
+    }
+}
+
+function selectDate(date, element) {
+    // Remove previous selection
+    document.querySelectorAll('.calendar-date').forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+    
+    currentBooking.date = date;
+    
+    // Show time selection
+    document.getElementById('dateSelection').classList.add('hidden');
+    document.getElementById('timeSelection').classList.remove('hidden');
+    
+    const dateDisplay = document.getElementById('selectedDateDisplay');
+    dateDisplay.textContent = `Selected: ${date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`;
+    
+    generateTimeSlots();
+}
+
+function generateTimeSlots() {
+    const container = document.getElementById('timeSlots');
+    container.innerHTML = '';
+    
+    // Generate times from 10:00 AM to 5:00 PM with 30-minute intervals
+    const startHour = 10;
+    const endHour = 17;
+    
+    for (let hour = startHour; hour <= endHour; hour++) {
+        for (let minute = 0; minute < 60; minute += 30) {
+            // Don't add 5:30 PM
+            if (hour === endHour && minute > 0) break;
+            
+            const timeSlot = document.createElement('div');
+            timeSlot.className = 'time-slot';
+            
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour > 12 ? hour - 12 : hour;
+            const displayMinute = minute.toString().padStart(2, '0');
+            const timeString = `${displayHour}:${displayMinute} ${period}`;
+            
+            timeSlot.textContent = timeString;
+            timeSlot.dataset.time = timeString;
+            
+            timeSlot.addEventListener('click', () => selectTime(timeString, timeSlot));
+            container.appendChild(timeSlot);
+        }
+    }
+}
+
+function selectTime(time, element) {
+    // Remove previous selection
+    document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+    
+    currentBooking.time = time;
+    
+    // Show confirmation
+    document.getElementById('timeSelection').classList.add('hidden');
+    document.getElementById('confirmSelection').classList.remove('hidden');
+    
+    const confirmDate = document.getElementById('confirmDate');
+    const confirmTime = document.getElementById('confirmTime');
+    
+    confirmDate.textContent = currentBooking.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    confirmTime.textContent = currentBooking.time;
+}
+
+function closeBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    modal.classList.add('hidden');
+    currentBooking = {
+        service: null,
+        date: null,
+        time: null
+    };
+}
+
+// Setup booking modal event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('bookingModal');
+    const confirmBtn = document.getElementById('confirmBookingBtn');
+    
+    // Close when clicking outside the panel
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeBookingModal();
+        }
+    });
+    
+    // Confirm booking button
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', () => {
+            // Save booking
+            const booking = {
+                id: Date.now(),
+                provider: currentBooking.service.provider,
+                service: currentBooking.service.title,
+                date: currentBooking.date.toISOString().split('T')[0],
+                dateFormatted: currentBooking.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }),
+                time: currentBooking.time
+            };
+            
+            userBookings.push(booking);
+            localStorage.setItem('userBookings', JSON.stringify(userBookings));
+            
+            alert(`Booking confirmed!\n\nProvider: ${currentBooking.service.provider}\nService: ${currentBooking.service.title}\nDate: ${currentBooking.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}\nTime: ${currentBooking.time}`);
+            
+            updateBookingsDisplay();
+            closeBookingModal();
+        });
+    }
+    
+    // Initialize bookings display
+    updateBookingsDisplay();
+    
+    // Clear all bookings button
+    const clearAllBtn = document.getElementById('clearAllBookingsBtn');
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', () => {
+            if (userBookings.length > 0) {
+                if (confirm('Are you sure you want to clear all bookings?')) {
+                    userBookings = [];
+                    localStorage.setItem('userBookings', JSON.stringify(userBookings));
+                    updateBookingsDisplay();
+                }
+            }
+        });
+    }
+});
+
+function updateBookingsDisplay() {
+    const bookingsList = document.getElementById('bookingsList');
+    
+    if (!bookingsList) return;
+    
+    if (userBookings.length === 0) {
+        bookingsList.innerHTML = '<div class="no-bookings">No Bookings Available</div>';
+    } else {
+        bookingsList.innerHTML = userBookings.map(booking => `
+            <div class="booking-item">
+                <div class="booking-provider">${escapeHtml(booking.provider)}</div>
+                <div class="booking-details">
+                    <div class="booking-date">📅 ${booking.dateFormatted}</div>
+                    <div class="booking-time">🕐 ${booking.time}</div>
+                </div>
+            </div>
+        `).join('');
     }
 }
 
