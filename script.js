@@ -1,285 +1,329 @@
-// Sample posts data
-const SAMPLE_POSTS = [
+// Sample services data for beauty and small business marketplace
+const SAMPLE_SERVICES = [
     {
         id: 1,
-        subreddit: "r/webdev",
-        author: "TechGuru",
+        category: "nails",
+        provider: "Sarah's Nails",
+        providerAvatar: "👩",
         time: "2 hours ago",
-        title: "How I Built a Production-Grade Web App in 3 Weeks",
-        preview: "Recently completed a major project and learned so much about modern web development practices. Here's what worked and what didn't...",
-        image: "https://via.placeholder.com/600x300?text=Web+Development",
-        upvotes: 2847,
-        comments: 342,
-        shares: 156
+        title: "💅 Luxury Gel Nails - Custom Designs",
+        description: "Professional gel manicures with custom designs. We offer ombré, glitter, French tips, and more. All supplies are premium quality.",
+        image: "https://via.placeholder.com/600x300?text=Gel+Nails",
+        price: 45,
+        rating: 4.9,
+        reviews: 156,
+        likes: 342
     },
     {
         id: 2,
-        subreddit: "r/javascript",
-        author: "CodeNinja",
-        time: "4 hours ago",
-        title: "React 19 is a Game Changer - My Honest Opinion",
-        preview: "Just upgraded to React 19 and I have to say, the new features are incredible. The server components and automatic renders optimization...",
-        image: "https://via.placeholder.com/600x300?text=React+19",
-        upvotes: 1523,
-        comments: 287,
-        shares: 94
+        category: "hair",
+        provider: "Braid Gang",
+        providerAvatar: "💇",
+        time: "3 hours ago",
+        title: "🧵 Professional Hair Braiding - All Styles",
+        description: "Expert braiding services including box braids, cornrows, goddess braids, and protective styles. We use quality extensions and are efficient.",
+        image: "https://via.placeholder.com/600x300?text=Hair+Braiding",
+        price: 75,
+        rating: 4.8,
+        reviews: 203,
+        likes: 287
     },
     {
         id: 3,
-        subreddit: "r/programming",
-        author: "DevMaster",
-        time: "5 hours ago",
-        title: "The Best JavaScript Frameworks of 2026",
-        preview: "After 15 years of web development, here's my comprehensive breakdown of the top frameworks and what makes them stand out...",
-        image: null,
-        upvotes: 3421,
-        comments: 523,
-        shares: 287
+        category: "makeup",
+        provider: "Glam by Maya",
+        providerAvatar: "💄",
+        time: "4 hours ago",
+        title: "💄 Professional Makeup - Events & Everyday",
+        description: "Experienced makeup artist offering services for events, photoshoots, and everyday glam. I specialize in bridal makeup and artistic designs.",
+        image: "https://via.placeholder.com/600x300?text=Makeup+Service",
+        price: 60,
+        rating: 5.0,
+        reviews: 124,
+        likes: 421
     },
     {
         id: 4,
-        subreddit: "r/design",
-        author: "DesignThinking",
-        time: "6 hours ago",
-        title: "UI Design Trends We're Seeing in 2026",
-        preview: "The design world is evolving rapidly. From glassmorphism to new typography trends, here's what's hot right now in the UI space...",
-        image: "https://via.placeholder.com/600x300?text=UI+Design+Trends",
-        upvotes: 892,
-        comments: 156,
-        shares: 67
+        category: "lashes",
+        provider: "Lash Lounge",
+        providerAvatar: "👁️",
+        time: "5 hours ago",
+        title: "👁️ Luxury Lash Extensions - Mink & Silk",
+        description: "Beautiful lash extensions that last 4-6 weeks. Offering mink, silk, and volume lashes. Professional application with premium products.",
+        image: "https://via.placeholder.com/600x300?text=Lash+Extensions",
+        price: 85,
+        rating: 4.7,
+        reviews: 89,
+        likes: 156
     },
     {
         id: 5,
-        subreddit: "r/technology",
-        author: "TechNews",
-        time: "7 hours ago",
-        title: "New WebAssembly Features Show Promise for Frontend Performance",
-        preview: "The latest WebAssembly proposals could revolutionize how we build complex applications. Early benchmarks are showing 40% performance improvements...",
-        image: "https://via.placeholder.com/600x300?text=WebAssembly",
-        upvotes: 2156,
-        comments: 412,
-        shares: 203
+        category: "braids",
+        provider: "Creative Strands",
+        providerAvatar: "🧵",
+        time: "6 hours ago",
+        title: "🎨 Custom Braids & Hair Art",
+        description: "Unique braiding styles with beads, colors, and intricate patterns. Fast turnaround and affordable prices. Perfect for any occasion.",
+        image: "https://via.placeholder.com/600x300?text=Creative+Braids",
+        price: 55,
+        rating: 4.6,
+        reviews: 178,
+        likes: 234
     },
     {
         id: 6,
-        subreddit: "r/webdev",
-        author: "CSSMaster",
-        time: "8 hours ago",
-        title: "CSS Grid vs Flexbox: When to Use Each",
-        preview: "A lot of developers still struggle with choosing between Grid and Flexbox. Let me break down when each one shines and give you a decision tree...",
-        image: null,
-        upvotes: 1678,
-        comments: 234,
-        shares: 89
+        category: "photography",
+        provider: "Creative Lens",
+        providerAvatar: "📸",
+        time: "7 hours ago",
+        title: "📸 Professional Photography - Portraits & Events",
+        description: "High-quality photography for portraits, headshots, and events. Fast editing and digital delivery. Let's capture your best moments!",
+        image: "https://via.placeholder.com/600x300?text=Photography",
+        price: 150,
+        rating: 5.0,
+        reviews: 95,
+        likes: 512
     },
     {
         id: 7,
-        subreddit: "r/javascript",
-        author: "AsyncGenius",
-        time: "9 hours ago",
-        title: "Understanding Async/Await: A Deep Dive",
-        preview: "Many developers use async/await without truly understanding what's happening under the hood. This guide will change how you write asynchronous code...",
-        image: "https://via.placeholder.com/600x300?text=Async+Await",
-        upvotes: 3892,
-        comments: 567,
-        shares: 345
+        category: "tutoring",
+        provider: "Math Genius Tutoring",
+        providerAvatar: "📚",
+        time: "8 hours ago",
+        title: "📚 Math Tutoring - All Levels",
+        description: "Experienced tutor offering help with algebra, geometry, calculus, and test prep (SAT/ACT). Online or in-person sessions available.",
+        image: "https://via.placeholder.com/600x300?text=Tutoring",
+        price: 35,
+        rating: 4.9,
+        reviews: 67,
+        likes: 189
     },
     {
         id: 8,
-        subreddit: "r/programming",
-        author: "AlgorithmPro",
+        category: "other",
+        provider: "Chic Fashion",
+        providerAvatar: "👗",
+        time: "9 hours ago",
+        title: "✨ Personal Styling & Wardrobe Consultation",
+        description: "Professional stylist offering personal shopping, wardrobe organization, and fashion advice to boost your confidence and style.",
+        image: "https://via.placeholder.com/600x300?text=Fashion+Styling",
+        price: 50,
+        rating: 4.8,
+        reviews: 112,
+        likes: 267
+    },
+    {
+        id: 9,
+        category: "makeup",
+        provider: "Brows & Lashes Studio",
+        providerAvatar: "😍",
         time: "10 hours ago",
-        title: "Why You Should Learn Data Structures and Algorithms",
-        preview: "Even though there are libraries for everything, understanding the fundamentals makes you a better programmer. Here's why...",
+        title: "😍 Eyebrow Design & Shaping",
+        description: "Professional eyebrow services including threading, shaping, tinting, and microblading. Customized to your face shape and style.",
         image: null,
-        upvotes: 2234,
-        comments: 389,
-        shares: 156
+        price: 25,
+        rating: 4.7,
+        reviews: 203,
+        likes: 178
+    },
+    {
+        id: 10,
+        category: "hair",
+        provider: "Hair Transformation Studio",
+        providerAvatar: "💫",
+        time: "11 hours ago",
+        title: "💫 Hair Coloring & Treatments",
+        description: "Expert hair coloring, highlights, balayage, and at-home maintenance treatments. Using professional-grade products for healthy, gorgeous results.",
+        image: "https://via.placeholder.com/600x300?text=Hair+Color",
+        price: 80,
+        rating: 4.9,
+        reviews: 198,
+        likes: 345
     }
 ];
 
-// Posts state
-let posts = JSON.parse(JSON.stringify(SAMPLE_POSTS));
-let currentSort = 'hot';
-let userVotes = {};
+// Services state
+let services = JSON.parse(JSON.stringify(SAMPLE_SERVICES));
+let currentCategory = 'all';
+let userLikes = {};
+let currentSort = 'newest';
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    renderPosts();
+    renderServices();
     setupEventListeners();
+    initializeAccountModal();
+    updateUserUI();
 });
 
 // Setup event listeners
 function setupEventListeners() {
-    // Sort buttons
-    document.querySelectorAll('.sort-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentSort = btn.dataset.sort;
-            sortPosts(currentSort);
+    // Category filter
+    document.querySelectorAll('.sidebar-item[data-category]').forEach(item => {
+        item.addEventListener('click', () => {
+            document.querySelectorAll('.sidebar-item[data-category]').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            currentCategory = item.dataset.category;
+            renderServices();
         });
     });
+
+    // Sort filter
+    document.querySelectorAll('.sidebar-item[data-sort]').forEach(item => {
+        item.addEventListener('click', () => {
+            currentSort = item.dataset.sort;
+            sortServices(currentSort);
+            renderServices();
+        });
+    });
+
+    // Price filter
+    const priceFilter = document.getElementById('priceFilter');
+    const priceDisplay = document.getElementById('priceDisplay');
+    if (priceFilter) {
+        priceFilter.addEventListener('input', (e) => {
+            priceDisplay.textContent = e.target.value;
+            renderServices();
+        });
+    }
 }
 
-// Sort posts
-function sortPosts(sortType) {
+// Sort services
+function sortServices(sortType) {
+    const maxPrice = parseInt(document.getElementById('priceFilter')?.value || 500);
+    
     switch(sortType) {
-        case 'hot':
-            posts.sort((a, b) => b.upvotes - a.upvotes);
+        case 'newest':
+            services.sort((a, b) => b.id - a.id);
             break;
-        case 'new':
-            posts.reverse();
+        case 'popular':
+            services.sort((a, b) => b.likes - a.likes);
             break;
-        case 'top':
-            posts.sort((a, b) => (b.upvotes + b.comments) - (a.upvotes + a.comments));
+        case 'rating':
+            services.sort((a, b) => b.rating - a.rating);
             break;
-        case 'rising':
-            posts.sort((a, b) => (b.upvotes + b.comments) * Math.random() - (a.upvotes + a.comments) * Math.random());
+        case 'price-low':
+            services.sort((a, b) => a.price - b.price);
+            break;
+        case 'price-high':
+            services.sort((a, b) => b.price - a.price);
             break;
     }
-    renderPosts();
 }
 
-// Render posts
-function renderPosts() {
+// Render services
+function renderServices() {
     const container = document.getElementById('postsContainer');
     container.innerHTML = '';
 
-    posts.forEach(post => {
-        const postEl = createPostElement(post);
-        container.appendChild(postEl);
+    const maxPrice = parseInt(document.getElementById('priceFilter')?.value || 500);
+    const filtered = services.filter(service => {
+        const categoryMatch = currentCategory === 'all' || service.category === currentCategory;
+        const priceMatch = service.price <= maxPrice;
+        return categoryMatch && priceMatch;
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-secondary);">No services found matching your filters. Try adjusting your search!</div>';
+        return;
+    }
+
+    filtered.forEach(service => {
+        const serviceEl = createServiceElement(service);
+        container.appendChild(serviceEl);
     });
 }
 
-// Create post element
-function createPostElement(post) {
-    const postDiv = document.createElement('div');
-    postDiv.className = 'post';
-    postDiv.dataset.postId = post.id;
+// Create service element
+function createServiceElement(service) {
+    const serviceDiv = document.createElement('div');
+    serviceDiv.className = 'post';
+    serviceDiv.dataset.serviceId = service.id;
 
-    const voteCount = parseInt(post.upvotes);
-    const userVote = userVotes[post.id] || 0;
-    const displayVotes = voteCount + userVote;
+    const userLike = userLikes[service.id] || false;
+    const displayLikes = service.likes + (userLike ? 1 : 0);
 
-    postDiv.innerHTML = `
+    serviceDiv.innerHTML = `
         <div class="post-votes">
-            <button class="vote-btn upvote" data-vote="up" title="Upvote">▲</button>
-            <div class="vote-count">${formatNumber(displayVotes)}</div>
-            <button class="vote-btn downvote" data-vote="down" title="Downvote">▼</button>
+            <button class="vote-btn like-btn" data-like="true" title="Like" style="border: none; background: none; font-size: 20px; cursor: pointer;">
+                <span class="${userLike ? 'liked' : ''}">♥️</span>
+            </button>
+            <div class="vote-count">${formatNumber(displayLikes)}</div>
         </div>
         <div class="post-content">
             <div class="post-header">
-                <span class="post-subreddit">${post.subreddit}</span>
+                <span class="post-author">${service.providerAvatar} ${service.provider}</span>
                 <span>•</span>
-                <span class="post-author">u/${post.author}</span>
-                <span>•</span>
-                <span class="post-time">${post.time}</span>
+                <span class="post-time">${service.time}</span>
+                <span class="post-rating" style="margin-left: auto;">⭐ ${service.rating} (${service.reviews} reviews)</span>
             </div>
-            <h3 class="post-title">${escapeHtml(post.title)}</h3>
-            ${post.preview ? `<p class="post-preview">${escapeHtml(post.preview)}</p>` : ''}
-            ${post.image ? `<img src="${post.image}" alt="Post image" class="post-image" onerror="this.style.display='none'">` : ''}
+            <h3 class="post-title">${escapeHtml(service.title)}</h3>
+            <p class="post-preview">${escapeHtml(service.description)}</p>
+            ${service.image ? `<img src="${service.image}" alt="Service image" class="post-image" onerror="this.style.display='none'">` : ''}
             <div class="post-footer">
+                <div class="service-price" style="font-weight: bold; color: var(--secondary-color); font-size: 18px;">
+                    $${service.price}
+                </div>
+                <div class="post-action">
+                    <span class="post-action-icon">❤️</span>
+                    <span>${formatNumber(displayLikes)}</span>
+                </div>
                 <div class="post-action">
                     <span class="post-action-icon">💬</span>
-                    <span>${formatNumber(post.comments)}</span>
+                    <span>Message</span>
                 </div>
                 <div class="post-action">
-                    <span class="post-action-icon">📤</span>
-                    <span>${formatNumber(post.shares)}</span>
-                </div>
-                <div class="post-action">
-                    <span class="post-action-icon">⋯</span>
-                    <span>More</span>
+                    <span class="post-action-icon">📱</span>
+                    <span>Contact</span>
                 </div>
             </div>
         </div>
     `;
 
-    // Add vote event listeners
-    const upvote = postDiv.querySelector('.upvote');
-    const downvote = postDiv.querySelector('.downvote');
+    // Add like button handler
+    const likeBtn = serviceDiv.querySelector('.like-btn');
+    likeBtn.addEventListener('click', () => handleLike(service.id));
 
-    upvote.addEventListener('click', () => handleVote(post.id, 'up', upvote, downvote));
-    downvote.addEventListener('click', () => handleVote(post.id, 'down', downvote, upvote));
-
-    // Set initial vote state
-    if (userVote === 1) {
-        upvote.classList.add('upvoted');
-    } else if (userVote === -1) {
-        downvote.classList.add('downvoted');
-    }
-
-    // Add click handlers for title and subreddit
-    const title = postDiv.querySelector('.post-title');
-    const subreddit = postDiv.querySelector('.post-subreddit');
-    const author = postDiv.querySelector('.post-author');
-
-    title.addEventListener('click', () => handlePostClick(post, 'title'));
-    subreddit.addEventListener('click', (e) => {
-        e.stopPropagation();
-        handlePostClick(post, 'subreddit');
-    });
+    // Add click handlers
+    const title = serviceDiv.querySelector('.post-title');
+    const author = serviceDiv.querySelector('.post-author');
+    
+    title.addEventListener('click', () => handleServiceClick(service, 'title'));
     author.addEventListener('click', (e) => {
         e.stopPropagation();
-        handlePostClick(post, 'author');
+        handleServiceClick(service, 'author');
     });
 
-    // Comment button
-    const commentAction = postDiv.querySelector('.post-action');
-    commentAction.addEventListener('click', () => handlePostClick(post, 'comments'));
+    // Message button
+    const messageAction = [...serviceDiv.querySelectorAll('.post-action')][1];
+    messageAction.addEventListener('click', () => handleServiceClick(service, 'message'));
 
-    return postDiv;
+    return serviceDiv;
 }
 
-// Handle voting
-function handleVote(postId, direction, button, oppositeButton) {
-    const currentVote = userVotes[postId] || 0;
-    let newVote = currentVote;
-
-    if (direction === 'up') {
-        newVote = currentVote === 1 ? 0 : 1;
-    } else {
-        newVote = currentVote === -1 ? 0 : -1;
-    }
-
-    userVotes[postId] = newVote;
-
-    // Update UI
-    button.classList.toggle('upvoted', newVote === 1);
-    button.classList.toggle('downvoted', newVote === -1);
-    oppositeButton.classList.remove('upvoted', 'downvoted');
-
-    // Re-render vote count
-    const post = posts.find(p => p.id === postId);
-    const postEl = document.querySelector(`[data-post-id="${postId}"]`);
-    const voteCount = postEl.querySelector('.vote-count');
-    const displayVotes = parseInt(post.upvotes) + newVote;
-    voteCount.textContent = formatNumber(displayVotes);
-
-    // Save to localStorage
-    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+// Handle like
+function handleLike(serviceId) {
+    userLikes[serviceId] = !userLikes[serviceId];
+    localStorage.setItem('userLikes', JSON.stringify(userLikes));
+    renderServices();
 }
 
-// Handle post interactions
-function handlePostClick(post, action) {
+// Handle service interactions
+function handleServiceClick(service, action) {
     let message = '';
     switch(action) {
         case 'title':
-            message = `You clicked on: "${post.title}"`;
-            break;
-        case 'subreddit':
-            message = `You clicked on: ${post.subreddit}`;
+            message = `You viewed: "${service.title}"`;
             break;
         case 'author':
-            message = `You clicked on: u/${post.author}'s profile`;
+            message = `You clicked on: ${service.provider}'s profile`;
             break;
-        case 'comments':
-            message = `Opening comments for: "${post.title}"`;
+        case 'message':
+            message = `Opening message with ${service.provider}`;
             break;
     }
     console.log(message);
-    // In a real app, this would navigate or open a modal
+    alert(message);
 }
 
 // Utility functions
@@ -298,32 +342,15 @@ function escapeHtml(text) {
     return element.innerHTML;
 }
 
-// Load user votes from localStorage
-function loadUserVotes() {
-    const saved = localStorage.getItem('userVotes');
+// Load user likes from localStorage
+function loadUserLikes() {
+    const saved = localStorage.getItem('userLikes');
     if (saved) {
-        userVotes = JSON.parse(saved);
-    }
+        userLikes = JSON.parse(saved);
 }
 
-// Load votes on startup
-loadUserVotes();
-
-// University and Quad data
-const UNIVERSITIES = {
-    uic: {
-        name: 'University of Illinois Chicago',
-        quads: ['q/engineering', 'q/business', 'q/arts', 'q/sciences', 'q/community']
-    },
-    uiuc: {
-        name: 'University of Illinois Urbana-Champaign',
-        quads: ['q/engineering', 'q/liberal-arts', 'q/business', 'q/agriculture', 'q/students']
-    },
-    uchicago: {
-        name: 'University of Chicago',
-        quads: ['q/college', 'q/graduate', 'q/business', 'q/divinity', 'q/law']
-    }
-};
+// Load likes on startup
+loadUserLikes();
 
 // Account creation modal functionality
 function initializeAccountModal() {
@@ -338,8 +365,8 @@ function initializeAccountModal() {
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
     
-    let selectedUniversity = null;
-    let selectedQuad = null;
+    let selectedAccountType = null;
+    let selectedCategory = null;
     
     // Check if user has already created an account
     const userAccount = localStorage.getItem('userAccount');
@@ -351,59 +378,47 @@ function initializeAccountModal() {
     // Show the modal on load
     accountModal.classList.remove('hidden');
     
-    // Step 1: Move to university selection
+    // Step 1: Move to account type selection
     nextStep1Btn.addEventListener('click', () => {
         const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         
         if (username && email && password) {
-            // Store temp data
             localStorage.setItem('tempUsername', username);
             localStorage.setItem('tempEmail', email);
             localStorage.setItem('tempPassword', password);
             
-            // Move to step 2
             step1.classList.add('hidden');
             step2.classList.remove('hidden');
         }
     });
     
-    // Step 2: University selection
-    const universityItems = document.querySelectorAll('#universityList .selection-item');
-    universityItems.forEach(item => {
+    // Step 2: Account type selection
+    const accountTypeItems = document.querySelectorAll('#accountTypeList .selection-item');
+    accountTypeItems.forEach(item => {
         item.addEventListener('click', () => {
-            universityItems.forEach(i => i.classList.remove('selected'));
+            accountTypeItems.forEach(i => i.classList.remove('selected'));
             item.classList.add('selected');
-            selectedUniversity = item.dataset.university;
+            selectedAccountType = item.dataset.type;
             
-            // Move to step 3 automatically
-            setTimeout(() => {
-                step2.classList.add('hidden');
-                step3.classList.remove('hidden');
-                
-                // Populate quads
-                const quadList = document.getElementById('quadList');
-                const universityDisplay = document.getElementById('universityDisplay');
-                const univData = UNIVERSITIES[selectedUniversity];
-                
-                universityDisplay.textContent = `Join a Quad - ${univData.name}`;
-                quadList.innerHTML = univData.quads.map(quad => `
-                    <div class="selection-item" data-quad="${quad}">
-                        <div class="selection-icon">📍</div>
-                        <div class="selection-text">${quad}</div>
-                    </div>
-                `).join('');
-                
-                // Add quad selection handlers
-                const quadItems = quadList.querySelectorAll('.selection-item');
-                quadItems.forEach(quadItem => {
-                    quadItem.addEventListener('click', () => {
-                        selectedQuad = quadItem.dataset.quad;
-                        finishAccountCreation();
-                    });
-                });
-            }, 100);
+            if (selectedAccountType === 'customer') {
+                finishAccountCreation();
+            } else {
+                setTimeout(() => {
+                    step2.classList.add('hidden');
+                    step3.classList.remove('hidden');
+                }, 100);
+            }
+        });
+    });
+    
+    // Step 3: Category selection (for providers)
+    const categoryItems = document.querySelectorAll('#categoryList .selection-item');
+    categoryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            selectedCategory = item.dataset.category;
+            finishAccountCreation();
         });
     });
     
@@ -411,24 +426,19 @@ function initializeAccountModal() {
     backBtn1.addEventListener('click', () => {
         step2.classList.add('hidden');
         step1.classList.remove('hidden');
-        selectedUniversity = null;
+        selectedAccountType = null;
     });
     
     backBtn2.addEventListener('click', () => {
         step3.classList.add('hidden');
         step2.classList.remove('hidden');
-        selectedQuad = null;
+        selectedCategory = null;
     });
     
     // Skip button
     skipBtn1.addEventListener('click', () => {
         accountModal.classList.add('hidden');
         localStorage.setItem('skippedAccount', 'true');
-        
-        // Show quad selection modal after a brief delay
-        setTimeout(() => {
-            window.showQuadSelectionModal();
-        }, 500);
     });
     
     // Finish account creation
@@ -437,31 +447,22 @@ function initializeAccountModal() {
         const email = localStorage.getItem('tempEmail');
         const password = localStorage.getItem('tempPassword');
         
-        // Save account to localStorage
         const account = {
             username,
             email,
-            university: selectedUniversity,
-            universityName: UNIVERSITIES[selectedUniversity].name,
-            quad: selectedQuad,
+            accountType: selectedAccountType || 'customer',
+            serviceCategory: selectedCategory,
             createdAt: new Date().toISOString()
         };
         localStorage.setItem('userAccount', JSON.stringify(account));
         localStorage.setItem('currentUser', username);
         
-        // Clear temp data
         localStorage.removeItem('tempUsername');
         localStorage.removeItem('tempEmail');
         localStorage.removeItem('tempPassword');
         
-        // Close modal and update UI
         accountModal.classList.add('hidden');
         updateUserUI();
-        
-        // Show quad selection modal after a brief delay
-        setTimeout(() => {
-            window.showQuadSelectionModal();
-        }, 500);
     }
 }
 
@@ -474,93 +475,3 @@ function updateUserUI() {
         userBtn.title = currentUser;
     }
 }
-
-// Quad selection modal functionality (appears after account creation)
-function initializeQuadSelectionModal() {
-    const quadModal = document.getElementById('quadSelectionModal');
-    const quadStep1 = document.getElementById('quadStep1');
-    const quadStep2 = document.getElementById('quadStep2');
-    const skipQuadBtn = document.getElementById('skipQuadBtn');
-    const backQuadBtn = document.getElementById('backQuadBtn');
-    
-    let selectedQuadUniversity = null;
-    
-    // Show quad selection modal
-    function showQuadSelectionModal() {
-        quadModal.classList.remove('hidden');
-        quadStep1.classList.remove('hidden');
-        quadStep2.classList.add('hidden');
-        selectedQuadUniversity = null;
-    }
-    
-    // Close quad selection modal
-    function closeQuadSelectionModal() {
-        quadModal.classList.add('hidden');
-    }
-    
-    // University selection in quad modal
-    const quadUniversityItems = document.querySelectorAll('#quadUniversityList .selection-item');
-    quadUniversityItems.forEach(item => {
-        item.addEventListener('click', () => {
-            quadUniversityItems.forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
-            selectedQuadUniversity = item.dataset.university;
-            
-            // Move to quad selection
-            setTimeout(() => {
-                quadStep1.classList.add('hidden');
-                quadStep2.classList.remove('hidden');
-                
-                // Populate quads
-                const homeQuadList = document.getElementById('homeQuadList');
-                const quadUniversityDisplay = document.getElementById('quadUniversityDisplay');
-                const univData = UNIVERSITIES[selectedQuadUniversity];
-                
-                quadUniversityDisplay.textContent = `${univData.name} Quads`;
-                homeQuadList.innerHTML = univData.quads.map(quad => `
-                    <div class="selection-item" data-quad="${quad}">
-                        <div class="selection-icon">📍</div>
-                        <div class="selection-text">${quad}</div>
-                    </div>
-                `).join('');
-                
-                // Add quad selection handlers
-                const quadItems = homeQuadList.querySelectorAll('.selection-item');
-                quadItems.forEach(quadItem => {
-                    quadItem.addEventListener('click', () => {
-                        // Save user's home quad
-                        const homeQuad = {
-                            university: selectedQuadUniversity,
-                            universityName: univData.name,
-                            quad: quadItem.dataset.quad
-                        };
-                        localStorage.setItem('userHomeQuad', JSON.stringify(homeQuad));
-                        
-                        // Close modal
-                        closeQuadSelectionModal();
-                    });
-                });
-            }, 100);
-        });
-    });
-    
-    // Back button
-    backQuadBtn.addEventListener('click', () => {
-        quadStep2.classList.add('hidden');
-        quadStep1.classList.remove('hidden');
-        selectedQuadUniversity = null;
-    });
-    
-    // Skip button
-    skipQuadBtn.addEventListener('click', () => {
-        closeQuadSelectionModal();
-    });
-    
-    // Expose function globally
-    window.showQuadSelectionModal = showQuadSelectionModal;
-}
-
-// Initialize modal on page load
-initializeAccountModal();
-initializeQuadSelectionModal();
-updateUserUI();

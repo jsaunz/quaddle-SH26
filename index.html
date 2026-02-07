@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quaddle - The Front Page of the Internet</title>
+    <title>Beauty & Services Marketplace</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,20 +12,20 @@
         <div class="header-container">
             <div class="header-left">
                 <div class="logo">
-                    <span class="logo-icon">Q</span>
-                    <span class="logo-text">Quaddle</span>
+                    <span class="logo-icon">✨</span>
+                    <span class="logo-text">BeautyHub</span>
                 </div>
                 <nav class="nav-main">
-                    <a href="#" class="nav-item">Home</a>
-                    <a href="#" class="nav-item">Popular</a>
-                    <a href="#" class="nav-item">All</a>
+                    <a href="#" class="nav-item">Browse Services</a>
+                    <a href="#" class="nav-item">My Services</a>
+                    <a href="#" class="nav-item">Messages</a>
                 </nav>
             </div>
             <div class="header-center">
-                <input type="text" class="search-bar" placeholder="Search Quaddle">
+                <input type="text" class="search-bar" placeholder="Search services...">
             </div>
             <div class="header-right">
-                <button class="btn-create">Create</button>
+                <button class="btn-create">Post Service</button>
                 <button class="btn-user">
                     <span class="user-icon">👤</span>
                 </button>
@@ -34,82 +34,118 @@
     </header>
 
     <div class="container">
-        <!-- Sidebar -->
+        <!-- Sidebar - Service Categories -->
         <aside class="sidebar">
             <div class="sidebar-section">
-                <h3 class="sidebar-heading">Home</h3>
-                <div class="sidebar-item active">🏠 Home Feed</div>
+                <h3 class="sidebar-heading">Categories</h3>
+                <div class="sidebar-item active" data-category="all">
+                    <span class="category-emoji">⭐</span> All Services
+                </div>
+                <div class="sidebar-item" data-category="nails">
+                    <span class="category-emoji">💅</span> Nails
+                </div>
+                <div class="sidebar-item" data-category="hair">
+                    <span class="category-emoji">💇</span> Hair Services
+                </div>
+                <div class="sidebar-item" data-category="makeup">
+                    <span class="category-emoji">💄</span> Makeup
+                </div>
+                <div class="sidebar-item" data-category="lashes">
+                    <span class="category-emoji">👁️</span> Lashes & Brows
+                </div>
+                <div class="sidebar-item" data-category="braids">
+                    <span class="category-emoji">🧵</span> Braids & Extensions
+                </div>
+                <div class="sidebar-item" data-category="photography">
+                    <span class="category-emoji">📸</span> Photography
+                </div>
+                <div class="sidebar-item" data-category="tutoring">
+                    <span class="category-emoji">📚</span> Tutoring
+                </div>
+                <div class="sidebar-item" data-category="other">
+                    <span class="category-emoji">🎨</span> Other Services
+                </div>
             </div>
 
             <div class="sidebar-section">
-                <h3 class="sidebar-heading">Communities</h3>
-                <div class="sidebar-item">r/programming</div>
-                <div class="sidebar-item">r/webdev</div>
-                <div class="sidebar-item">r/javascript</div>
-                <div class="sidebar-item">r/design</div>
-                <div class="sidebar-item">r/technology</div>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-heading">Popular</h3>
-                <div class="sidebar-item">r/AskReddit</div>
-                <div class="sidebar-item">r/funny</div>
-                <div class="sidebar-item">r/todayilearned</div>
-                <div class="sidebar-item">r/gaming</div>
+                <h3 class="sidebar-heading">Sort By</h3>
+                <div class="sidebar-item" data-sort="newest">
+                    🕐 Newest
+                </div>
+                <div class="sidebar-item" data-sort="popular">
+                    ⭐ Most Popular
+                </div>
+                <div class="sidebar-item" data-sort="rating">
+                    ⭐ Highest Rated
+                </div>
+                <div class="sidebar-item" data-sort="price-low">
+                    💰 Price: Low to High
+                </div>
+                <div class="sidebar-item" data-sort="price-high">
+                    💰 Price: High to Low
+                </div>
             </div>
 
             <div class="sidebar-bottom">
-                <button class="btn-join">Join Community</button>
+                <button class="btn-join">✨ Start Selling</button>
             </div>
         </aside>
 
         <!-- Main Feed -->
         <main class="feed">
-            <!-- Sort Options -->
+            <!-- Filter Bar -->
             <div class="feed-options">
-                <button class="sort-btn active" data-sort="hot">Hot</button>
-                <button class="sort-btn" data-sort="new">New</button>
-                <button class="sort-btn" data-sort="top">Top</button>
-                <button class="sort-btn" data-sort="rising">Rising</button>
+                <div class="filter-group">
+                    <input type="range" min="0" max="500" value="500" class="price-filter" id="priceFilter">
+                    <span class="filter-label">Max Price: $<span id="priceDisplay">500</span></span>
+                </div>
+                <div class="filter-group">
+                    <select class="rating-filter">
+                        <option value="">All Ratings</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5 stars)</option>
+                        <option value="4">⭐⭐⭐⭐ (4+ stars)</option>
+                        <option value="3">⭐⭐⭐ (3+ stars)</option>
+                    </select>
+                </div>
             </div>
 
-            <!-- Posts Container -->
+            <!-- Services Container -->
             <div class="posts-container" id="postsContainer">
-                <!-- Posts will be generated by JavaScript -->
+                <!-- Services will be generated by JavaScript -->
             </div>
         </main>
 
-        <!-- Right Sidebar -->
+        <!-- Right Sidebar - Featured -->
         <aside class="right-sidebar">
             <div class="widget">
-                <h3>Popular Now</h3>
+                <h3>Featured Services</h3>
                 <div class="trending-item">
                     <div class="trending-rank">1</div>
                     <div class="trending-content">
-                        <div class="trending-title">Building Web Apps with React</div>
-                        <div class="trending-subreddit">r/reactjs</div>
+                        <div class="trending-title">💅 Luxury Gel Nails</div>
+                        <div class="trending-subreddit">By Sarah's Nails • ⭐ 4.9</div>
                     </div>
                 </div>
                 <div class="trending-item">
                     <div class="trending-rank">2</div>
                     <div class="trending-content">
-                        <div class="trending-title">JavaScript Tips & Tricks</div>
-                        <div class="trending-subreddit">r/javascript</div>
+                        <div class="trending-title">💇 Professional Hair Braiding</div>
+                        <div class="trending-subreddit">By Braid Gang • ⭐ 4.8</div>
                     </div>
                 </div>
                 <div class="trending-item">
                     <div class="trending-rank">3</div>
                     <div class="trending-content">
-                        <div class="trending-title">CSS Grid Layout Guide</div>
-                        <div class="trending-subreddit">r/webdev</div>
+                        <div class="trending-title">📸 Portrait & Event Photography</div>
+                        <div class="trending-subreddit">By Creative Lens • ⭐ 5.0</div>
                     </div>
                 </div>
             </div>
 
             <div class="widget">
-                <h3>About Community</h3>
-                <p>Welcome to Quaddle, the front page of the internet. A place for almost anything under the sun.</p>
-                <button class="btn-primary">Join</button>
+                <h3>About BeautyHub</h3>
+                <p>Connect with talented service providers in your community. From nails to photography, find quality services that fit your style.</p>
+                <button class="btn-primary">Learn More</button>
             </div>
         </aside>
     </div>
@@ -119,7 +155,7 @@
         <div class="modal-content">
             <!-- Step 1: Account Creation -->
             <div id="step1" class="modal-step">
-                <h2>Welcome to Quaddle</h2>
+                <h2>Welcome to BeautyHub</h2>
                 <p>Create an account to get started</p>
                 <form id="accountForm">
                     <input type="text" id="username" placeholder="Username" required>
@@ -130,67 +166,58 @@
                 </form>
             </div>
 
-            <!-- Step 2: University Selection -->
+            <!-- Step 2: Account Type -->
             <div id="step2" class="modal-step hidden">
-                <h2>Select Your University</h2>
-                <p>Which university are you part of?</p>
-                <div id="universityList" class="selection-list">
-                    <div class="selection-item" data-university="uic">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Illinois Chicago</div>
+                <h2>Account Type</h2>
+                <p>Are you a service provider or customer?</p>
+                <div id="accountTypeList" class="selection-list">
+                    <div class="selection-item" data-type="customer">
+                        <div class="selection-icon">👤</div>
+                        <div class="selection-text">Customer (Browse Services)</div>
                     </div>
-                    <div class="selection-item" data-university="uiuc">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Illinois Urbana-Champaign</div>
-                    </div>
-                    <div class="selection-item" data-university="uchicago">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Chicago</div>
+                    <div class="selection-item" data-type="provider">
+                        <div class="selection-icon">💼</div>
+                        <div class="selection-text">Service Provider (Sell Services)</div>
                     </div>
                 </div>
                 <button type="button" class="btn-secondary" id="backBtn1">Back</button>
             </div>
 
-            <!-- Step 3: Quad Selection -->
+            <!-- Step 3: Service Category (For Providers) -->
             <div id="step3" class="modal-step hidden">
-                <h2>Join a Quad</h2>
-                <p id="universityDisplay">Select your quad</p>
-                <div id="quadList" class="selection-list"></div>
-                <button type="button" class="btn-secondary" id="backBtn2">Back</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Quad Selection Modal (after account setup) -->
-    <div id="quadSelectionModal" class="modal">
-        <div class="modal-content">
-            <!-- Step 1: University Selection for Quad -->
-            <div id="quadStep1" class="modal-step">
-                <h2>Choose Your Home Quad</h2>
-                <p>Select the university where you'd like to join a quad</p>
-                <div id="quadUniversityList" class="selection-list">
-                    <div class="selection-item" data-university="uic">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Illinois Chicago</div>
+                <h2>What Services Do You Offer?</h2>
+                <p>Select your primary service category</p>
+                <div id="categoryList" class="selection-list">
+                    <div class="selection-item" data-category="nails">
+                        <div class="selection-icon">💅</div>
+                        <div class="selection-text">Nails</div>
                     </div>
-                    <div class="selection-item" data-university="uiuc">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Illinois Urbana-Champaign</div>
+                    <div class="selection-item" data-category="hair">
+                        <div class="selection-icon">💇</div>
+                        <div class="selection-text">Hair Services</div>
                     </div>
-                    <div class="selection-item" data-university="uchicago">
-                        <div class="selection-icon">🏫</div>
-                        <div class="selection-text">University of Chicago</div>
+                    <div class="selection-item" data-category="makeup">
+                        <div class="selection-icon">💄</div>
+                        <div class="selection-text">Makeup</div>
+                    </div>
+                    <div class="selection-item" data-category="lashes">
+                        <div class="selection-icon">👁️</div>
+                        <div class="selection-text">Lashes & Brows</div>
+                    </div>
+                    <div class="selection-item" data-category="braids">
+                        <div class="selection-icon">🧵</div>
+                        <div class="selection-text">Braids & Extensions</div>
+                    </div>
+                    <div class="selection-item" data-category="photography">
+                        <div class="selection-icon">📸</div>
+                        <div class="selection-text">Photography</div>
+                    </div>
+                    <div class="selection-item" data-category="tutoring">
+                        <div class="selection-icon">📚</div>
+                        <div class="selection-text">Tutoring</div>
                     </div>
                 </div>
-                <button type="button" class="btn-secondary" id="skipQuadBtn">Skip</button>
-            </div>
-
-            <!-- Step 2: Quad Selection -->
-            <div id="quadStep2" class="modal-step hidden">
-                <h2>Select Your Quad</h2>
-                <p id="quadUniversityDisplay">Choose a quad to join</p>
-                <div id="homeQuadList" class="selection-list"></div>
-                <button type="button" class="btn-secondary" id="backQuadBtn">Back</button>
+                <button type="button" class="btn-secondary" id="backBtn2">Back</button>
             </div>
         </div>
     </div>
