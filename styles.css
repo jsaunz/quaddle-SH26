@@ -466,22 +466,41 @@ body {
     box-shadow: 0 8px 24px rgba(124, 92, 219, 0.15);
 }
 
-.post-votes {
-    display: none;
+.post-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    border-radius: 0;
 }
 
-.vote-btn {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 16px;
-    padding: 4px;
-    border-radius: 4px;
-    transition: all 0.2s;
+@media (min-width: 900px) {
+    /* On large screens, constrain image width for a compact card look */
+    .post .post-image {
+        width: 100%;
+    }
 }
 
-.vote-btn:hover {
+/* Collage grid for multiple images */
+.post-collage {
+    display: grid;
+    gap: 2px;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+}
+.post-collage img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+/* If only 2 images, make them side-by-side; 3 or 4 will form a 2x2 grid */
+.post-collage img:nth-child(1) { }
+.post-collage img:nth-child(2) { }
+.post-collage img:nth-child(3) { }
+.post-collage img:nth-child(4) { }
     background-color: var(--border);
     color: var(--secondary-color);
 }
@@ -928,6 +947,75 @@ body {
 
     .sidebar {
         display: none;
+    }
+}
+
+/* Upload modal — cleaner, compact layout */
+#uploadModal .modal-content {
+    max-width: 720px;
+    padding: 24px;
+}
+
+#uploadModal .modal-header {
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+#uploadModal .upload-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    align-items: start;
+}
+
+#uploadModal .upload-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Make most fields span both columns by default */
+#uploadModal .upload-form .form-group:not(.half) {
+    grid-column: 1 / -1;
+}
+
+#uploadModal .form-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+}
+
+#uploadModal label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+#uploadModal input,
+#uploadModal select,
+#uploadModal textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--foreground);
+}
+
+#uploadModal .form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    #uploadModal .upload-form {
+        grid-template-columns: 1fr;
+    }
+    #uploadModal .form-actions {
+        flex-direction: column;
+        align-items: stretch;
     }
 }
 

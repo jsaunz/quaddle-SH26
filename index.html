@@ -25,7 +25,8 @@
                 <input type="text" class="search-bar" placeholder="Search for services, venues, or providers...">
             </div>
             <div class="header-right">
-                <button class="btn-create">Log In</button>
+                <button class="btn-create" id="uploadPostBtn">Upload Post</button>
+                <button class="btn-primary" id="loginBtn">Log In</button>
                 <button class="btn-user">
                     <span class="user-icon">👤</span>
                 </button>
@@ -54,7 +55,7 @@
             </div>
 
             <div class="sidebar-bottom">
-                <button class="btn-join">List Your Business</button>
+                <button class="btn-join" id="listBusinessBtn">List Your Business</button>
             </div>
         </aside>
 
@@ -182,6 +183,72 @@
             </div>
         </div>
     </div>
+
+            <!-- Upload Post Modal -->
+            <div id="uploadModal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Upload a New Service Post</h2>
+                    </div>
+                    <form id="uploadForm" class="upload-form">
+                        <div class="form-group">
+                            <label for="postCategory">Category *</label>
+                            <select id="postCategory" required>
+                                <option value="">Select a category</option>
+                                <option value="💇 Hair & Beauty">💇 Hair & Beauty</option>
+                                <option value="💅 Nails & Spa">💅 Nails & Spa</option>
+                                <option value="💆 Massage & Wellness">💆 Massage & Wellness</option>
+                                <option value="🏋️ Fitness & Gym">🏋️ Fitness & Gym</option>
+                                <option value="🧘 Yoga & Meditation">🧘 Yoga & Meditation</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postProvider">Business Name *</label>
+                            <input type="text" id="postProvider" placeholder="Your business name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postTitle">Service Title *</label>
+                            <input type="text" id="postTitle" placeholder="What service do you offer?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postDescription">Description *</label>
+                            <textarea id="postDescription" placeholder="Describe your service in detail..." rows="4" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postPrice">Price Level *</label>
+                                <select id="postPrice" required>
+                                    <option value="">Select price level</option>
+                                    <option value="$">$ (Budget-friendly)</option>
+                                    <option value="$$">$$ (Moderate)</option>
+                                    <option value="$$$">$$$ (Premium)</option>
+                                    <option value="$$$$">$$$$ (Luxury)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postAddress">Address *</label>
+                            <input type="text" id="postAddress" placeholder="Enter your business address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postImages">Image URLs (one per line) *</label>
+                            <textarea id="postImages" placeholder="https://example.com/image1.jpg\nhttps://example.com/image2.jpg" rows="3" required></textarea>
+                            <small style="color:var(--text-secondary);">Enter one image URL per line. First image will be primary.</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Upload Service</button>
+                            <button type="button" class="btn-secondary" id="cancelUploadBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal hidden">

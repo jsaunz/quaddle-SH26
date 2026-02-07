@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     setupCategoryLinks();
     initializeReviewSystem();
+    initializeUploadFunctionality();
 });
 
 // Wire left-sidebar category items to open a category page
@@ -177,7 +178,22 @@ function createPostElement(post) {
     const isFavorited = userFavorites[post.id] || false;
     const stars = '⭐'.repeat(Math.floor(post.rating));
 
+    // normalize images for legacy posts
+    const images = (post.images && Array.isArray(post.images)) ? post.images : (post.image ? [post.image] : []);
+
+    let mediaHtml = '';
+    if (images.length === 0) {
+        mediaHtml = `<img src="https://via.placeholder.com/600" alt="${escapeHtml(post.title)}" class="post-image">`;
+    } else if (images.length === 1) {
+        mediaHtml = `<img src="${images[0]}" alt="${escapeHtml(post.title)}" class="post-image" onerror="this.src='https://via.placeholder.com/600'">`;
+    } else {
+        // build a collage grid (limit to 4 shown)
+        const show = images.slice(0, 4);
+        mediaHtml = `<div class="post-collage">${show.map((src, i) => `<img src="${src}" alt="${escapeHtml(post.title)}-${i}" onerror="this.src='https://via.placeholder.com/600'">`).join('')}</div>`;
+    }
+
     postDiv.innerHTML = `
+        ${mediaHtml}
         <div class="post-content">
             <div class="post-header">
                 <span class="post-subreddit">${post.category}</span>
@@ -206,6 +222,7 @@ function createPostElement(post) {
                     <span class="post-action-icon">ℹ️</span>
                     <span>Details</span>
                 </button>
+                ${post.isUserPost ? `<button class="post-action edit-btn"><span class="post-action-icon">✏️</span><span>Edit</span></button>` : ''}
             </div>
         </div>
     `;
@@ -223,6 +240,13 @@ function createPostElement(post) {
         toggleFavorite(post.id);
     });
     detailsBtn.addEventListener('click', () => handleServiceClick(post, 'details'));
+    const editBtn = postDiv.querySelector('.edit-btn');
+    if (editBtn) {
+        editBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openUploadModal(post);
+        });
+    }
 
     return postDiv;
 }
@@ -512,6 +536,151 @@ function loadUserFavorites() {
 
 // Load favorites on startup
 loadUserFavorites();
+
+// ==============================
+// Upload post feature
+// ==============================
+
+let userPosts = [];
+let editingPostId = null;
+
+function loadUserPosts() {
+    try {
+        const saved = localStorage.getItem('userPosts');
+        userPosts = saved ? JSON.parse(saved) : [];
+    } catch (e) {
+        console.warn('Could not load user posts', e);
+        userPosts = [];
+    }
+}
+
+function saveUserPosts() {
+    try {
+        localStorage.setItem('userPosts', JSON.stringify(userPosts));
+    } catch (e) {
+        console.warn('Could not save user posts', e);
+    }
+}
+
+function openUploadModal(post = null) {
+    const uploadModal = document.getElementById('uploadModal');
+    if (!uploadModal) return;
+    const form = document.getElementById('uploadForm');
+    if (post) {
+        editingPostId = post.id;
+        if (form) {
+            document.getElementById('postCategory').value = post.category || '';
+            document.getElementById('postProvider').value = post.provider || '';
+            document.getElementById('postTitle').value = post.title || '';
+            document.getElementById('postDescription').value = post.preview || '';
+            document.getElementById('postPrice').value = post.price || '';
+            document.getElementById('postAddress').value = post.time || '';
+            const imagesField = document.getElementById('postImages');
+            const imgs = (post.images && Array.isArray(post.images)) ? post.images : (post.image ? [post.image] : []);
+            if (imagesField) imagesField.value = imgs.join('\n');
+        }
+    } else {
+        editingPostId = null;
+        if (form) form.reset();
+    }
+    uploadModal.classList.remove('hidden');
+}
+
+function closeUploadModal() {
+    const uploadModal = document.getElementById('uploadModal');
+    if (!uploadModal) return;
+    uploadModal.classList.add('hidden');
+    editingPostId = null;
+}
+
+function handleUploadSubmit(e) {
+    e.preventDefault();
+
+    const category = document.getElementById('postCategory').value;
+    const provider = document.getElementById('postProvider').value;
+    const title = document.getElementById('postTitle').value;
+    const preview = document.getElementById('postDescription').value;
+    const price = document.getElementById('postPrice').value;
+    const time = document.getElementById('postAddress').value;
+    const imagesRaw = document.getElementById('postImages') ? document.getElementById('postImages').value : '';
+    const images = imagesRaw.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+
+    if (editingPostId) {
+        const updateArr = (arr) => {
+            const idx = arr.findIndex(p => p.id === editingPostId);
+            if (idx !== -1) {
+                arr[idx] = Object.assign({}, arr[idx], {
+                    category,
+                    provider,
+                    title,
+                    preview,
+                    price,
+                    time,
+                    images,
+                    image: images[0] || null
+                });
+            }
+        };
+
+        updateArr(userPosts);
+        updateArr(posts);
+        updateArr(SAMPLE_POSTS);
+        saveUserPosts();
+        sortPosts(currentSort || 'hot');
+        editingPostId = null;
+        closeUploadModal();
+        return;
+    }
+
+    const newId = Math.max(0, ...SAMPLE_POSTS.map(p => p.id), ...posts.map(p => p.id), ...userPosts.map(p => p.id)) + 1;
+    const newPost = {
+        id: newId,
+        category,
+        provider,
+        time,
+        title,
+        preview,
+        images: images,
+        image: images[0] || null,
+        rating: 5.0,
+        reviews: 0,
+        price,
+        isUserPost: true,
+        uploadedAt: new Date().toISOString()
+    };
+
+    userPosts.unshift(newPost);
+    saveUserPosts();
+
+    SAMPLE_POSTS.unshift(newPost);
+    posts.unshift(newPost);
+
+    currentSort = 'hot';
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    const hotBtn = document.querySelector('.sort-btn[data-sort="hot"]');
+    if (hotBtn) hotBtn.classList.add('active');
+    sortPosts('hot');
+
+    closeUploadModal();
+}
+
+function initializeUploadFunctionality() {
+    loadUserPosts();
+
+    const uploadPostBtn = document.getElementById('uploadPostBtn');
+    const listBusinessBtn = document.getElementById('listBusinessBtn');
+    const closeUploadBtn = document.getElementById('closeUploadBtn');
+    const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+    const uploadModal = document.getElementById('uploadModal');
+    const uploadForm = document.getElementById('uploadForm');
+
+    if (uploadPostBtn) uploadPostBtn.addEventListener('click', () => openUploadModal(null));
+    if (listBusinessBtn) listBusinessBtn.addEventListener('click', () => openUploadModal(null));
+    if (closeUploadBtn) closeUploadBtn.addEventListener('click', closeUploadModal);
+    if (cancelUploadBtn) cancelUploadBtn.addEventListener('click', closeUploadModal);
+    if (uploadModal) uploadModal.addEventListener('click', (e) => { if (e.target === uploadModal) closeUploadModal(); });
+    if (uploadForm) uploadForm.addEventListener('submit', handleUploadSubmit);
+}
 
 // University and Quad data
 const UNIVERSITIES = {
