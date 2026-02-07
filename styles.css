@@ -490,9 +490,6 @@ body {
 .post:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(124, 92, 219, 0.15);
-}.post:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(124, 92, 219, 0.15);
 }
 
 .post-votes {
