@@ -698,6 +698,26 @@ const UNIVERSITIES = {
     }
 };
 
+function getCurrentUser() {
+    return sessionStorage.getItem('currentUser') || localStorage.getItem('currentUser');
+}
+
+function setCurrentUser(username, remember) {
+    if (remember) {
+        localStorage.setItem('currentUser', username);
+        sessionStorage.removeItem('currentUser');
+    } else {
+        sessionStorage.setItem('currentUser', username);
+        localStorage.removeItem('currentUser');
+    }
+}
+
+function clearCurrentUser() {
+    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('rememberMe');
+}
+
 // Account creation modal functionality
 function initializeAccountModal() {
     const accountModal = document.getElementById('accountModal');
@@ -729,7 +749,7 @@ function initializeAccountModal() {
     }
 
     // Show the modal on first load only if no account and not logged in
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = getCurrentUser();
     if (!currentUser) {
         accountModal.classList.remove('hidden');
     } else {
@@ -831,7 +851,7 @@ function initializeAccountModal() {
             createdAt: new Date().toISOString()
         };
         localStorage.setItem('userAccount', JSON.stringify(account));
-        localStorage.setItem('currentUser', username);
+        setCurrentUser(username, true);
         localStorage.setItem('rememberMe', 'true');
 
         // Mark that the welcome/account flow has been completed so it won't auto-show again
@@ -850,7 +870,7 @@ function initializeAccountModal() {
 
 // Update user UI with account info
 function updateUserUI() {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = getCurrentUser();
     const userBtn = document.querySelector('.btn-user');
     if (userBtn) {
         if (currentUser) {
@@ -865,108 +885,8 @@ function updateUserUI() {
     }
 }
 
-// Quad selection modal functionality (appears after account creation)
-function initializeQuadSelectionModal() {
-    const quadModal = document.getElementById('quadSelectionModal');
-    const quadStep1 = document.getElementById('quadStep1');
-    const quadStep2 = document.getElementById('quadStep2');
-    const skipQuadBtn = document.getElementById('skipQuadBtn');
-    const backQuadBtn = document.getElementById('backQuadBtn');
-    
-    let selectedQuadUniversity = null;
-    
-    // Show quad selection modal
-    function showQuadSelectionModal() {
-        // If user already set a home quad, or if we've shown the quad selection once, don't show again
-        const userHomeQuad = localStorage.getItem('userHomeQuad');
-        const seenQuad = localStorage.getItem('seenQuadSelection') === 'true';
-        if (userHomeQuad || seenQuad) {
-            return; // Don't show if already completed or already shown once
-        }
-
-        // Mark that quad selection was shown so it won't auto-show again
-        localStorage.setItem('seenQuadSelection', 'true');
-
-        quadModal.classList.remove('hidden');
-        quadStep1.classList.remove('hidden');
-        quadStep2.classList.add('hidden');
-        selectedQuadUniversity = null;
-    }
-    
-    // Close quad selection modal
-    function closeQuadSelectionModal() {
-        quadModal.classList.add('hidden');
-    }
-    
-    // University selection in quad modal
-    const quadUniversityItems = document.querySelectorAll('#quadUniversityList .selection-item');
-    quadUniversityItems.forEach(item => {
-        item.addEventListener('click', () => {
-            quadUniversityItems.forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
-            selectedQuadUniversity = item.dataset.university;
-            
-            // Move to quad selection
-            setTimeout(() => {
-                quadStep1.classList.add('hidden');
-                quadStep2.classList.remove('hidden');
-                
-                // Populate quads
-                const homeQuadList = document.getElementById('homeQuadList');
-                const quadUniversityDisplay = document.getElementById('quadUniversityDisplay');
-                const univData = UNIVERSITIES[selectedQuadUniversity];
-                
-                quadUniversityDisplay.textContent = `${univData.name} Quads`;
-                homeQuadList.innerHTML = univData.quads.map(quad => `
-                    <div class="selection-item" data-quad="${quad}">
-                        <div class="selection-icon">📍</div>
-                        <div class="selection-text">${quad}</div>
-                    </div>
-                `).join('');
-                
-                // Add quad selection handlers
-                const quadItems = homeQuadList.querySelectorAll('.selection-item');
-                quadItems.forEach(quadItem => {
-                    quadItem.addEventListener('click', () => {
-                        // Save user's home quad
-                        const homeQuad = {
-                            university: selectedQuadUniversity,
-                            universityName: univData.name,
-                            quad: quadItem.dataset.quad
-                        };
-                        localStorage.setItem('userHomeQuad', JSON.stringify(homeQuad));
-                        // mark as seen/completed so it won't auto-show again
-                        localStorage.setItem('seenQuadSelection', 'true');
-                        
-                        // Close modal
-                        closeQuadSelectionModal();
-                    });
-                });
-            }, 100);
-        });
-    });
-    
-    // Back button
-    backQuadBtn.addEventListener('click', () => {
-        quadStep2.classList.add('hidden');
-        quadStep1.classList.remove('hidden');
-        selectedQuadUniversity = null;
-    });
-    
-    // Skip button
-    skipQuadBtn.addEventListener('click', () => {
-        // mark as seen so it doesn't show again
-        localStorage.setItem('seenQuadSelection', 'true');
-        closeQuadSelectionModal();
-    });
-    
-    // Expose function globally
-    window.showQuadSelectionModal = showQuadSelectionModal;
-}
-
 // Initialize modal on page load
 initializeAccountModal();
-initializeQuadSelectionModal();
 initializeLoginModal();
 updateUserUI();
 
@@ -974,6 +894,8 @@ updateUserUI();
 
 function initializeLoginModal() {
     const loginModal = document.getElementById('loginModal');
+    if (!loginModal) return;
+
     const loginForm = document.getElementById('loginForm');
     const closeLoginBtn = document.getElementById('closeLoginBtn');
     const showSignupLink = document.getElementById('showSignupLink');
@@ -981,113 +903,294 @@ function initializeLoginModal() {
     const loginError = document.getElementById('loginError');
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
     const rememberMeCheckbox = document.getElementById('rememberMe');
+    const identifierInput = document.getElementById('loginIdentifier');
+    const passwordInput = document.getElementById('loginPassword');
+    const passwordStrength = document.getElementById('passwordStrength');
+    const loginPanel = document.getElementById('loginPanel');
+    const forgotPanel = document.getElementById('forgotPanel');
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    const backToLoginLink = document.getElementById('backToLoginLink');
+    const forgotForm = document.getElementById('forgotForm');
+    const forgotEmail = document.getElementById('forgotEmail');
+    const forgotError = document.getElementById('forgotError');
+    const forgotMessage = document.getElementById('forgotMessage');
+
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const USERNAME_REGEX = /^[a-zA-Z0-9_]{3,20}$/;
+
+    if (rememberMeCheckbox) {
+        rememberMeCheckbox.checked = localStorage.getItem('rememberMe') === 'true';
+    }
+
+    function setInputError(input, hasError) {
+        if (!input) return;
+        input.classList.toggle('input-error', hasError);
+        input.setAttribute('aria-invalid', hasError ? 'true' : 'false');
+    }
+
+    function setLoginError(message) {
+        if (loginError) loginError.textContent = message;
+    }
+
+    function clearLoginErrors() {
+        setLoginError('');
+        setInputError(identifierInput, false);
+        setInputError(passwordInput, false);
+    }
+
+    function showForgotPanel() {
+        if (loginPanel) loginPanel.classList.add('hidden');
+        if (forgotPanel) forgotPanel.classList.remove('hidden');
+        if (forgotError) forgotError.textContent = '';
+        if (forgotMessage) forgotMessage.textContent = '';
+        if (forgotEmail) forgotEmail.value = '';
+    }
+
+    function showLoginPanel() {
+        if (forgotPanel) forgotPanel.classList.add('hidden');
+        if (loginPanel) loginPanel.classList.remove('hidden');
+    }
+
+    function getPasswordStrength(password) {
+        if (!password) return { label: '-', key: '' };
+
+        let score = 0;
+        if (password.length >= 8) score += 1;
+        if (password.length >= 12) score += 1;
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score += 1;
+        if (/\d/.test(password)) score += 1;
+        if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+        if (score <= 2) return { label: 'Weak', key: 'weak' };
+        if (score <= 4) return { label: 'Okay', key: 'okay' };
+        return { label: 'Strong', key: 'strong' };
+    }
+
+    function updatePasswordStrength() {
+        if (!passwordStrength || !passwordInput) return;
+        const strength = getPasswordStrength(passwordInput.value);
+        passwordStrength.textContent = `Strength: ${strength.label}`;
+        passwordStrength.dataset.strength = strength.key;
+    }
 
     // User button click handler
-    userBtn.addEventListener('click', () => {
-        const currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            // User is logged in - show options menu
-            showUserMenu();
-        } else {
-            // User is not logged in - show login modal
-            showLoginModal();
-        }
-    });
-
-    // Close login modal
-    closeLoginBtn.addEventListener('click', () => {
-        loginModal.classList.add('hidden');
-        clearLoginForm();
-        if (loginError) loginError.textContent = '';
-    });
-
-    // Show signup from login
-    showSignupLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.classList.add('hidden');
-        clearLoginForm();
-        if (loginError) loginError.textContent = '';
-        // Show account modal
-        const accountModal = document.getElementById('accountModal');
-        accountModal.classList.remove('hidden');
-        document.getElementById('step1').classList.remove('hidden');
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('step3').classList.add('hidden');
-    });
-
-    // Toggle password visibility
-    if (togglePasswordBtn) {
-        togglePasswordBtn.addEventListener('click', () => {
-            const pass = document.getElementById('loginPassword');
-            if (!pass) return;
-            if (pass.type === 'password') {
-                pass.type = 'text';
-                togglePasswordBtn.textContent = '🙈';
+    if (userBtn) {
+        userBtn.addEventListener('click', () => {
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                showUserMenu();
             } else {
-                pass.type = 'password';
-                togglePasswordBtn.textContent = '👁️';
+                showLoginModal();
             }
         });
     }
 
-    // Login form submission
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (loginError) loginError.textContent = '';
-        const username = document.getElementById('loginUsername').value.trim();
-        const password = document.getElementById('loginPassword').value || '';
-
-        // Retrieve stored account
-        const storedAccount = localStorage.getItem('userAccount');
-        
-        if (!storedAccount) {
-            if (loginError) loginError.textContent = 'No account found. Please create an account first.';
-            return;
-        }
-
-        const account = JSON.parse(storedAccount);
-        // Verify username matches
-        if (account.username !== username) {
-            if (loginError) loginError.textContent = 'Invalid username or password.';
-            return;
-        }
-
-        const hashed = await hashString(password);
-        if (account.password === hashed) {
-            // Set current user
-            localStorage.setItem('currentUser', username);
-            const remember = rememberMeCheckbox && rememberMeCheckbox.checked;
-            localStorage.setItem('rememberMe', remember ? 'true' : 'false');
+    // Close login modal
+    if (closeLoginBtn) {
+        closeLoginBtn.addEventListener('click', () => {
             loginModal.classList.add('hidden');
             clearLoginForm();
-            updateUserUI();
-        } else {
-            if (loginError) loginError.textContent = 'Invalid username or password.';
-        }
-    });
+            clearLoginErrors();
+            showLoginPanel();
+        });
+    }
+
+    // Show signup from login
+    if (showSignupLink) {
+        showSignupLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.add('hidden');
+            clearLoginForm();
+            clearLoginErrors();
+            showLoginPanel();
+
+            const accountModal = document.getElementById('accountModal');
+            accountModal.classList.remove('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+        });
+    }
+
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', () => {
+            showForgotPanel();
+        });
+    }
+
+    if (backToLoginLink) {
+        backToLoginLink.addEventListener('click', () => {
+            showLoginPanel();
+        });
+    }
+
+    // Toggle password visibility
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', () => {
+            if (!passwordInput) return;
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePasswordBtn.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                togglePasswordBtn.textContent = 'Show';
+            }
+        });
+    }
+
+    if (passwordInput) {
+        passwordInput.addEventListener('input', updatePasswordStrength);
+    }
+
+    if (identifierInput) {
+        identifierInput.addEventListener('input', () => {
+            setInputError(identifierInput, false);
+            setLoginError('');
+        });
+    }
+
+    // Login form submission
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearLoginErrors();
+
+            const identifier = identifierInput ? identifierInput.value.trim() : '';
+            const password = passwordInput ? passwordInput.value : '';
+
+            if (!identifier) {
+                setInputError(identifierInput, true);
+                setLoginError('Enter your username or email.');
+                return;
+            }
+
+            if (identifier.includes('@')) {
+                if (!EMAIL_REGEX.test(identifier)) {
+                    setInputError(identifierInput, true);
+                    setLoginError('Enter a valid email address.');
+                    return;
+                }
+            } else if (!USERNAME_REGEX.test(identifier)) {
+                setInputError(identifierInput, true);
+                setLoginError('Usernames are 3-20 characters and can include letters, numbers, and underscores.');
+                return;
+            }
+
+            if (!password) {
+                setInputError(passwordInput, true);
+                setLoginError('Enter your password.');
+                return;
+            }
+
+            const storedAccount = localStorage.getItem('userAccount');
+            if (!storedAccount) {
+                setLoginError('No account found. Please create an account first.');
+                return;
+            }
+
+            const account = JSON.parse(storedAccount);
+            const matchesEmail = identifier.includes('@');
+
+            if (matchesEmail && account.email !== identifier) {
+                setLoginError('Invalid username/email or password.');
+                return;
+            }
+
+            if (!matchesEmail && account.username !== identifier) {
+                setLoginError('Invalid username/email or password.');
+                return;
+            }
+
+            const hashed = await hashString(password);
+            if (account.password === hashed) {
+                const remember = rememberMeCheckbox && rememberMeCheckbox.checked;
+                setCurrentUser(account.username, remember);
+                localStorage.setItem('rememberMe', remember ? 'true' : 'false');
+                loginModal.classList.add('hidden');
+                clearLoginForm();
+                updateUserUI();
+            } else {
+                setLoginError('Invalid username/email or password.');
+            }
+        });
+    }
+
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (forgotError) forgotError.textContent = '';
+            if (forgotMessage) forgotMessage.textContent = '';
+
+            const email = forgotEmail ? forgotEmail.value.trim() : '';
+            if (!EMAIL_REGEX.test(email)) {
+                setInputError(forgotEmail, true);
+                if (forgotError) forgotError.textContent = 'Enter a valid email address.';
+                return;
+            }
+
+            setInputError(forgotEmail, false);
+            if (forgotMessage) {
+                forgotMessage.textContent = 'If an account exists for that email, a reset link has been sent.';
+            }
+        });
+    }
 
     // Click outside modal to close
     loginModal.addEventListener('click', (e) => {
         if (e.target === loginModal) {
             loginModal.classList.add('hidden');
             clearLoginForm();
-            if (loginError) loginError.textContent = '';
+            clearLoginErrors();
+            showLoginPanel();
         }
     });
+
+    updatePasswordStrength();
 }
 
 function showLoginModal() {
     const loginModal = document.getElementById('loginModal');
+    const loginPanel = document.getElementById('loginPanel');
+    const forgotPanel = document.getElementById('forgotPanel');
     loginModal.classList.remove('hidden');
+    if (loginPanel) loginPanel.classList.remove('hidden');
+    if (forgotPanel) forgotPanel.classList.add('hidden');
 }
 
 function clearLoginForm() {
-    document.getElementById('loginUsername').value = '';
-    document.getElementById('loginPassword').value = '';
+    const identifierInput = document.getElementById('loginIdentifier');
+    const passwordInput = document.getElementById('loginPassword');
+    const passwordStrength = document.getElementById('passwordStrength');
+    const loginError = document.getElementById('loginError');
+    const forgotError = document.getElementById('forgotError');
+    const forgotMessage = document.getElementById('forgotMessage');
+    const forgotEmail = document.getElementById('forgotEmail');
+
+    if (identifierInput) identifierInput.value = '';
+    if (passwordInput) passwordInput.value = '';
+    if (loginError) loginError.textContent = '';
+    if (forgotError) forgotError.textContent = '';
+    if (forgotMessage) forgotMessage.textContent = '';
+    if (forgotEmail) forgotEmail.value = '';
+
+    if (passwordStrength) {
+        passwordStrength.textContent = 'Strength: -';
+        passwordStrength.dataset.strength = '';
+    }
+
+    if (identifierInput) {
+        identifierInput.classList.remove('input-error');
+        identifierInput.removeAttribute('aria-invalid');
+    }
+
+    if (passwordInput) {
+        passwordInput.classList.remove('input-error');
+        passwordInput.removeAttribute('aria-invalid');
+    }
 }
 
 function showUserMenu() {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = getCurrentUser();
     const userAccount = localStorage.getItem('userAccount');
     
     let accountInfo = '';
@@ -1099,7 +1202,7 @@ function showUserMenu() {
     const logout = confirm(`Logged in as: ${currentUser}${accountInfo}\n\nWould you like to log out?`);
     
     if (logout) {
-        localStorage.removeItem('currentUser');
+        clearCurrentUser();
         updateUserUI();
         alert('You have been logged out successfully.');
     }
@@ -1231,7 +1334,7 @@ function submitReview(username, rating, comment) {
         rating,
         comment,
         timestamp: new Date().toISOString(),
-        rater: localStorage.getItem('currentUser') || 'Anonymous'
+        rater: getCurrentUser() || 'Anonymous'
     };
 
     userReviews[username].push(review);
