@@ -563,29 +563,14 @@ body > * {
 
 .btn-create,
 .btn-user {
-<<<<<<< HEAD
-    background: var(--coffee);
-=======
     background: var(--primary-color);
->>>>>>> badc06119786d9aaf52138bcd1113ba083551c76
     border: none;
-    color: white;
+    color: #000000;
     padding: 10px 24px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
-<<<<<<< HEAD
-    transition: all 0.18s ease;
-    box-shadow: 0 8px 18px var(--coffee-shadow);
-    text-transform: none;
-    letter-spacing: 0.2px;
-}
-
-.btn-create:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 26px rgba(83,56,37,0.14);
-=======
     transition: all 0.3s;
     box-shadow: 0 4px 12px rgba(31, 58, 125, 0.3);
 }
@@ -593,7 +578,6 @@ body > * {
 .btn-create:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(31, 58, 125, 0.4);
->>>>>>> badc06119786d9aaf52138bcd1113ba083551c76
 }
 
 .btn-user {
@@ -1321,6 +1305,7 @@ body > * {
 #uploadModal .modal-header {
     padding-bottom: 12px;
     margin-bottom: 8px;
+    color: #000000;
 }
 
 #uploadModal .upload-form {
@@ -1350,7 +1335,7 @@ body > * {
 #uploadModal label {
     font-size: 13px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: #000000;
 }
 
 #uploadModal input,
@@ -1361,6 +1346,7 @@ body > * {
     border-radius: 8px;
     border: 1px solid var(--border);
     background: var(--foreground);
+    color: #000000;
 }
 
 #uploadModal .form-actions {
